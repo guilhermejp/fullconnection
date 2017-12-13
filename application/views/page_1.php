@@ -1,9 +1,15 @@
 <div data-role="content" data-theme="a">
     <div class="header"><h3>IDENTIFICAÇÃO</h3></div>
-    <div>
-        Data da Manunção Preventiva<br>
-        <input type="date" name="data">
-    </div>
+    <div class="ui-grid-a">
+        <div class="ui-block-a" style="padding-right: 5px;">
+            Cidade<br>
+            <input type="text" name="cidade">
+        </div>
+        <div class="ui-block-b" style="padding-left: 5px;">
+            Data da Manunção Preventiva<br>
+            <input type="date" name="data">
+        </div>
+    </div><!-- /grid-a -->
     <div class="ui-grid-a">
         <div class="ui-block-a" style="padding-right: 5px;">
             Hora Início<br>

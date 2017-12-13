@@ -91,14 +91,14 @@
     <center>
         <table class="w100" cellpacing="0" cellpadding="0">
             <tr>
-                <td></td><td><div class="zeroheight"><?= @$localidade ?></div></td>
+                <td></td><td><div class="zeroheight"><?= @$cidade ?></div></td>
                 <td></td><td><div class="zeroheight"><?= @$data ?></div></td>
                 <td></td><td><div class="zeroheight"><?= @$hora_inicial ?></div></td>
                 <td></td><td><div class="zeroheight"><?= @$hora_final ?></div></td>
                 <td></td><td><div class="zeroheight">OS Nº: 999.999</div></td>
             </tr>
             <tr class="ident_text">
-                <td><i class="fa fa-map-marker"></i></td><td><div class="zeroheight">LOCALIDADE</div></td>
+                <td><i class="fa fa-map-marker"></i></td><td><div class="zeroheight">CIDADE</div></td>
                 <td><i class="fa fa-calendar"></i>	</td><td><div class="zeroheight">DATA DA MANUTENÇÃO PREVENTIVA</div></td>
                 <td><i class="fa fa-clock-o"></i>	</td><td><div class="zeroheight">HORA INICIAL</div></td>
                 <td><i class="fa fa-clock-o"></i>	</td><td><div class="zeroheight">HORA FINAL</div></td>
