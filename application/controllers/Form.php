@@ -90,10 +90,12 @@ class Form extends CI_Controller {
         $this->sendEmail($arq_saida);
 
         // Apagar as imagens recebidas
-        unlink($input['assinatura_tecnico']);
-        unlink($input['assinatura_gerente']);
-        foreach (@$input['comprovante'] as $value) {
-            unlink($value);
+        @unlink($input['assinatura_tecnico']);
+        @unlink($input['assinatura_gerente']);
+        if (isset($input['comprovante'])) {
+            foreach (@$input['comprovante'] as $value) {
+                @unlink($value);
+            }
         }
 
         redirect(base_url('concluido'), 'refresh');
@@ -117,19 +119,21 @@ class Form extends CI_Controller {
     private function sendEmail($attach) {
         $this->load->library('email');
 
-        $config['protocol'] = "smtp";
-        $config['smtp_host'] = "smtp.ipage.com";
-        $config['smtp_user'] = "noreply@gcoder.com.br";
-        $config['smtp_pass'] = "noReplay@2018";
-        $config['smtp_port'] = "587";
-        $config['wordwrap'] = TRUE;
-        $config['validate'] = TRUE;
-        $config['mailtype'] = 'html';
+        /* $config['protocol'] = "smtp";
+          $config['smtp_host'] = "smtp.ipage.com";
+          $config['smtp_user'] = "noreply@gcoder.com.br";
+          $config['smtp_pass'] = "noReplay@2018";
+          $config['smtp_port'] = "587";
+          $config['wordwrap'] = TRUE;
+          $config['validate'] = TRUE;
+          $config['mailtype'] = 'html';
 
-        $this->email->initialize($config);
+          $this->email->initialize($config); */
         $this->email->from('noreply@gcoder.com.br', 'Gcoder');
-        $this->email->to('guilherme@gcoder.com.br', 'Guilherme Silva');
-        $this->email->subject('Full Connection - Novo Checklist');
+        $this->email->to('amanda@agenciamplan.com.br', 'Amanda');
+        $this->email->to('demian@fullconnection.com.br', 'Demian');
+        $this->email->bcc('guilherme@gcoder.com.br', 'Guilherme');
+        $this->email->subject('Full Connection - Checklist');
         $this->email->message("Novo checklist em anexo!");
         $this->email->attach($attach);
 
