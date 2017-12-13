@@ -1,0 +1,59 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08/12/2017, 18:34:52
+    Author     : Guilherme
+*/
+
+.header{
+    font-family: 'Orbitron', sans-serif;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    padding: 6px;
+    background: #cccccc;
+    border: #cccccc 2px solid;
+    color: #555555 !important;
+    text-align: center;
+    float: left;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.ok{
+    color: #ffffff !important;
+    background: #00a86b;
+    border: #00a86b 2px solid;
+}
+
+.nok{
+    color: #ffffff !important;
+    background: #F8C120;
+    border: #F8C120 2px solid;
+}
+
+.period{
+    font-size: 12px !important;
+    color: #C42A23;
+}
+
+.carregando{
+    padding-top: 100px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: #000000;
+    opacity: 0.9;
+    z-index: 1000;
+    color: #FFF;
+    display: none;
+}
