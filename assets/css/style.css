@@ -13,8 +13,8 @@ and open the template in the editor.
 }
 
 .numberCircle {
-    border-radius: 50%;
-    width: 20px;
+    border-radius: 10%;
+    width: 10px;
     height: 20px;
     padding: 6px;
     background: #cccccc;
@@ -22,8 +22,11 @@ and open the template in the editor.
     color: #555555 !important;
     text-align: center;
     float: left;
-    margin-right: 20px;
+    margin-right: 7px;
     text-decoration: none;
+}
+.numberCircle:first-child {
+    width: 15px;
 }
 
 .ok{
@@ -43,7 +46,7 @@ and open the template in the editor.
     color: #C42A23;
 }
 
-.carregando{
+.carregando, .carregando_img{
     padding-top: 100px;
     text-align: center;
     height: 100%;

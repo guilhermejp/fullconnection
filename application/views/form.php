@@ -18,7 +18,7 @@ header("Content-type: text/html; charset=utf-8");
         <link rel="stylesheet" href="<?= base_url('assets/themes/jquery.mobile.icons.min.css') ?>" />
         <link rel="stylesheet" href="<?= base_url('assets/css/jquery.mobile.structure-1.4.5.min.css') ?>" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-        <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
+        <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=2') ?>" />
         <script src="<?= base_url('assets/js/jquery-1.11.1.min.js') ?>"></script>
         <script src="<?= base_url('assets/js/jquery.mobile-1.4.5.min.js') ?>"></script>
     </head>
@@ -92,7 +92,7 @@ header("Content-type: text/html; charset=utf-8");
             </form>
         </div>
         <div class="not-last-page" data-role="page" data-theme="a" id="page_7">
-            <form>
+            <form id="form_page7">
                 <?php
                 // Cabeçalho é fixo
                 include("header.php");
@@ -134,9 +134,17 @@ header("Content-type: text/html; charset=utf-8");
     </body>
     <div class="carregando">
         <center>
-            <img src="<?=base_url('assets/themes/images/ajax-loader.gif')?>" height="50px"><br>
-            <p><img src="<?=base_url('assets/images/fulllogo2.png')?>" height="50px"></p>
+            <img src="<?= base_url('assets/themes/images/ajax-loader.gif') ?>" height="50px"><br>
+            <p><img src="<?= base_url('assets/images/fulllogo2.png') ?>" height="50px"></p>
             <p>Processando informações, aguarde...</p>
+        </center>
+    </div>
+
+    <div class="carregando_img">
+        <center>
+            <img src="<?= base_url('assets/themes/images/ajax-loader.gif') ?>" height="50px"><br>
+            <p><img src="<?= base_url('assets/images/fulllogo2.png') ?>" height="50px"></p>
+            <p>Carregando imagem, aguarde...</p>
         </center>
     </div>
     <script>
@@ -150,7 +158,7 @@ header("Content-type: text/html; charset=utf-8");
             $('form').each(function () {
                 $(this)[0].reset();
             });
-            
+
             $('.add-quadro').click(function () {
                 qtdeQuadrosEletricos++;
                 var html = '<br>' +
@@ -362,10 +370,15 @@ header("Content-type: text/html; charset=utf-8");
             });
 
             $('.add-comprovante').click(function () {
-                var html = '<input type="file" name="comprovante[]">';
+                var html = '<input type="file" name="comprovante[]" class="comprovante">';
                 $('.add-comprovante').before(html);
                 $('.div_comprovantes').trigger('create');
+                /*$('.comprovante').unbind('change');
+                elementoComprovante();*/
             });
+
+            var campo = "";
+            /*elementoComprovante();*/
 
             $('.submit').click(function () {
 
@@ -381,6 +394,47 @@ header("Content-type: text/html; charset=utf-8");
                 $('.carregando').show();
                 $('#formulario').submit();
             });
+
+            $('select').change(function () {
+                $('[name=' + $(this).attr('id') + ']').val($(this).val());
+            });
         });
+
+        function elementoComprovante() {
+            $('.comprovante').change(function (event) {
+                campo = this;
+                $('.carregando_img').show();
+                var formData = new FormData($('#form_page7')[0]);
+                formData.append('comprovante', event.target.files[0]);
+                formData.append('os', $("[name=os]").val());
+                formData.append('cliente', $("[name=cliente]").val());
+                formData.append('datai', $("[name=datai]").val());
+                formData.append('cidade', $("[name=cidade]").val());
+
+                return $.ajax({
+                    url: "<?= base_url('form/upload'); ?>",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    enctype: 'multipart/form-data',
+                    method: "POST",
+                    type: "POST",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.retorno == true) {
+                            $(campo).before('<div>Imagem Salva com sucesso! OK</div><input type="hidden" name="comprovante[]" readonly="readonly" value="' + result.imagem + '">');
+                            $(campo).remove();
+                        } else {
+                            alert("Erro ao selecionar a imagem, tente novamente");
+                            alert(result.retorno);
+                            alert(result.tamanho);
+                            alert(result.error);
+                        }
+                        $('.carregando_img').hide();
+                    }
+                });
+
+            });
+        }
     </script>
 </html>

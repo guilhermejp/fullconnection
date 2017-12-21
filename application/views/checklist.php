@@ -83,7 +83,7 @@
     <body>
         <table class="w100">
             <tr>
-                <td style="width: 33%"><img src="<?= FCPATH . 'assets/images/huaweilogo.png'; ?>" height="30px;"></td>
+                <td style="width: 33%"><img src="<?= FCPATH . 'assets/images/'.$cliente.'.png'; ?>" height="30px;"></td>
                 <td style="width: 33%" align="center"><h2>Checklist</h2></td>
                 <td style="width: 34%" align="right"><img src="<?= FCPATH . 'assets/images/fulllogo2.png'; ?>" height="30px;"></td>
             </tr>
@@ -92,14 +92,16 @@
         <table class="w100" cellpacing="0" cellpadding="0">
             <tr>
                 <td></td><td><div class="zeroheight"><?= @$cidade ?></div></td>
-                <td></td><td><div class="zeroheight"><?= @$data ?></div></td>
+                <td></td><td><div class="zeroheight"><?= @$datai ?></div></td>
+                <td></td><td><div class="zeroheight"><?= @$dataf ?></div></td>
                 <td></td><td><div class="zeroheight"><?= @$hora_inicial ?></div></td>
                 <td></td><td><div class="zeroheight"><?= @$hora_final ?></div></td>
-                <td></td><td><div class="zeroheight">OS Nº: 999.999</div></td>
+                <td></td><td><div class="zeroheight"><?= @$os ?></div></td>
             </tr>
             <tr class="ident_text">
-                <td><i class="fa fa-map-marker"></i></td><td><div class="zeroheight">CIDADE</div></td>
-                <td><i class="fa fa-calendar"></i>	</td><td><div class="zeroheight">DATA DA MANUTENÇÃO PREVENTIVA</div></td>
+                <td><i class="fa fa-map-marker"></i></td><td><div class="zeroheight">LOJA</div></td>
+                <td><i class="fa fa-calendar"></i>	</td><td><div class="zeroheight">DATA INICIO PREVENTIVA</div></td>
+                <td><i class="fa fa-calendar"></i>	</td><td><div class="zeroheight">DATA FIM PREVENTIVA</div></td>
                 <td><i class="fa fa-clock-o"></i>	</td><td><div class="zeroheight">HORA INICIAL</div></td>
                 <td><i class="fa fa-clock-o"></i>	</td><td><div class="zeroheight">HORA FINAL</div></td>
                 <td><i class="fa fa-file-o"></i>	</td><td><div class="zeroheight">ORDEM DE SERVIÇO</div></td>
@@ -506,20 +508,20 @@
     <p><?= @$extras ?></p>
 
     <br>
-    <h3 class="header">COMPROVANTES</h3>
+    <!--<h3 class="header">COMPROVANTES</h3>
     <hr>
     <center>
         <?php
-        if(isset($comprovante)) {
+        /*if(isset($comprovante)) {
             foreach (@$comprovante as $value) {
                 ?>
                 <img src="<?= @$value ?>" style="max-width: 500px;">
                 <?php
             }
-        }
+        }*/
         ?>
     </center>
-    <br>
+    <br>-->
     <h3 class="header">SERVIÇOS EXECUTADOS E SOLICITADOS PELO GERENTE</h3>
     <hr>
     <p><?= @$servicos_executados ?></p>

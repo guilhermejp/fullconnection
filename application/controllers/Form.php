@@ -1,8 +1,8 @@
 <?php
 
-ini_set("upload_max_filesize", "2056M");
-ini_set("post_max_size", "2056M");
-ini_set("memory_limit", "2056M");
+ini_set("upload_max_filesize", "1G");
+ini_set("post_max_size", "1G");
+ini_set("memory_limit", "1G");
 ini_set('max_execution_time', 600);
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -36,14 +36,14 @@ class Form extends CI_Controller {
             $input['datai'] = ( $input['datai'] == "" ? date("Y-m-d") : $input['datai']);
             $input['cidade'] = ( $input['cidade'] == "" ? "loja" : $input['cidade']);
             $input['os'] = ( $input['os'] == "" ? "os" : $input['os']);
-            
-            $caminho_arquivo = "checklists/".$input['cliente']."/".date("Y-m", strtotime($input['datai']))."/";
-            $nome_arquivo = str_replace(" ","-",$input['cliente']).
-                    "_".str_replace(" ","-",$input['cidade'])
-                    ."_".str_replace(" ","-",$input['os'])
-                    ."_".date("Y-m-d", strtotime($input['datai']));
-            
-            if(!is_dir($caminho_arquivo)){
+
+            $caminho_arquivo = "checklists/" . $input['cliente'] . "/" . date("Y-m", strtotime($input['datai'])) . "/";
+            $nome_arquivo = str_replace(" ", "-", $input['cliente']) .
+                    "_" . str_replace(" ", "-", $input['cidade'])
+                    . "_" . str_replace(" ", "-", $input['os'])
+                    . "_" . date("Y-m-d", strtotime($input['datai']));
+
+            if (!is_dir($caminho_arquivo)) {
                 mkdir($caminho_arquivo, 0750, true);
             }
             if ($_FILES['assinatura_tecnico']['size'] > 0) {
@@ -78,10 +78,10 @@ class Form extends CI_Controller {
                     $_FILES['comp']['tmp_name'] = $_FILES['comprovante']['tmp_name'][$i];
                     $_FILES['comp']['error'] = $_FILES['comprovante']['error'][$i];
                     $_FILES['comp']['size'] = $_FILES['comprovante']['size'][$i];
-                    $config['upload_path'] = "./".$caminho_arquivo;
+                    $config['upload_path'] = "./" . $caminho_arquivo;
                     $config['allowed_types'] = 'jpg|png|gif|bmp';
                     //$config['encrypt_name'] = TRUE;
-                    $config['file_name'] = $nome_arquivo."_comprovante_".$i;
+                    $config['file_name'] = $nome_arquivo . "_comprovante_" . $i;
                     $this->upload->initialize($config);
                     if ($this->upload->do_upload('comp')) {
                         $image_details = $this->upload->data();
@@ -108,7 +108,7 @@ class Form extends CI_Controller {
         $filename = 'report_' . time();
         $pdf = $this->pdfgenerator->generate($html, $filename, $tela, 'A4', 'portrait');
 
-        $arq_saida = $caminho_arquivo.$nome_arquivo.".pdf";
+        $arq_saida = $caminho_arquivo . $nome_arquivo . ".pdf";
         file_put_contents($arq_saida, $pdf);
         $attach[] = $arq_saida;
         $this->sendEmail($attach);
@@ -154,10 +154,10 @@ class Form extends CI_Controller {
 
         $this->email->initialize($config);
         $this->email->from('checklist@fullconnection.com.br', 'FullConnection Checklist');
-          $this->email->to('amanda@agenciamplan.com.br', 'Amanda');
-          $this->email->cc('demian@fullconnection.com.br', 'Demian');
-          $this->email->bcc('guilherme@gcoder.com.br', 'Guilherme');
-        //$this->email->to('guilherme@gcoder.com.br', 'Guilherme');
+        /*$this->email->to('amanda@agenciamplan.com.br', 'Amanda');
+        $this->email->cc('demian@fullconnection.com.br', 'Demian');
+        $this->email->bcc('guilherme@gcoder.com.br', 'Guilherme');*/
+        $this->email->to('guilherme@gcoder.com.br', 'Guilherme');
         $this->email->subject('Full Connection - Checklist');
         $this->email->message("Novo checklist em anexo!");
         if (is_array($attach)) {
@@ -172,6 +172,48 @@ class Form extends CI_Controller {
         }
 
         return true;
+    }
+
+    public function upload() {
+
+        $input = $this->input->post();
+        
+        $input['cliente'] = ( $input['cliente'] == "" ? "nao_informado" : $input['cliente']);
+        $input['datai'] = ( $input['datai'] == "" ? date("Y-m-d") : $input['datai']);
+        $input['cidade'] = ( $input['cidade'] == "" ? "loja" : $input['cidade']);
+        $input['os'] = ( $input['os'] == "" ? "os" : $input['os']);
+
+        $caminho_arquivo = "checklists/" . $input['cliente'] . "/" . date("Y-m", strtotime($input['datai'])) . "/";
+        $nome_arquivo = str_replace(" ", "-", $input['cliente']) .
+                "_" . str_replace(" ", "-", $input['cidade'])
+                . "_" . str_replace(" ", "-", $input['os'])
+                . "_" . date("Y-m-d", strtotime($input['datai']));
+
+        if (!is_dir($caminho_arquivo)) {
+            mkdir($caminho_arquivo, 0750, true);
+        }
+
+        if (@$_FILES['comprovante']['size'] > 0) {
+            $_FILES['comp']['name'] = $_FILES['comprovante']['name'];
+            $_FILES['comp']['type'] = $_FILES['comprovante']['type'];
+            $_FILES['comp']['tmp_name'] = $_FILES['comprovante']['tmp_name'];
+            $_FILES['comp']['error'] = $_FILES['comprovante']['error'];
+            $_FILES['comp']['size'] = $_FILES['comprovante']['size'];
+            $config['upload_path'] = "./" . $caminho_arquivo;
+            $config['allowed_types'] = 'jpg|png|gif|bmp';
+            $config['encrypt_name'] = TRUE;
+            $config['max_size'] = 0;
+            //$config['file_name'] = $nome_arquivo . "_comprovante_" . $i;
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload('comp')) {
+                $image_details = $this->upload->data();
+                echo json_encode(array("imagem"=>$config['upload_path'] . $image_details['file_name'],
+                                       "retorno"=>true));
+                return true;
+            }
+        }
+        echo json_encode(array("retorno"=>false,"tamanho"=>$_FILES['comprovante']['size'], "error"=>$this->upload->display_errors()));
+        return false;
     }
 
 }

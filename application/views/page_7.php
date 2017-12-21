@@ -26,7 +26,7 @@
     <br>
     <div style="padding-left: 5px;" class="div_comprovantes">
         <label for="textarea">Comprovantes</label>
-        <input type="file" name="comprovante[]">
+        <input type="file" name="comprovante[]" class="comprovante">
         <a class="ui-btn add-comprovante" href="#">Adicionar Comprovante</a>
     </div>
     <br>

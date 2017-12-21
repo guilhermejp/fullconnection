@@ -1,10 +1,11 @@
 <div data-role="content" data-theme="a">
     <div class="header"><h3>AR CONDICIONADO</h3></div>
     <input type="hidden" name="qtde_ar_condicionado" id="qtde_ar_condicionado">
-    <a class="ui-btn add-ar-condicionado" href="#">Adicionar Ar Condicionado</a>
-    <br>
     <div data-role="collapsibleset" data-content-theme="a" data-iconpos="right" id="div-ar-group">
     </div>
+    <br>
+    <a class="ui-btn add-ar-condicionado" href="#">Adicionar Ar Condicionado</a>
+    <br>
     <br>
     <!--
     <div class="ui-grid-a">

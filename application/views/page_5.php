@@ -1,10 +1,11 @@
 <div data-role="content" data-theme="a">
     <div class="header"><h3>QUADROS ELÉTRICOS</h3></div>
     <input type="hidden" name="qtde_quadros_eletricos" id="qtde_quadros_eletricos">
-    <a class="ui-btn add-quadro" href="#">Adicionar Quadro Elétrico</a>
-    <br>
     <div data-role="collapsibleset" data-content-theme="a" data-iconpos="right" id="div-quadro-group">
     </div>
+    <br>
+    <a class="ui-btn add-quadro" href="#">Adicionar Quadro Elétrico</a>
+    <br>
 
     <br>
     <!--<div class="ui-grid-a">

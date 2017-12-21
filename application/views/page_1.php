@@ -1,13 +1,36 @@
 <div data-role="content" data-theme="a">
     <div class="header"><h3>IDENTIFICAÇÃO</h3></div>
+    <div>
+        <div style="padding-right: 5px;">
+            Cliente<br>
+            <input type="hidden" name="cliente" value="bradesco">
+            <select id="cliente">
+                <option value="bradesco">Bradesco</option>
+                <option value="huawei">Huawei</option>
+                <option value="nike">Nike</option>
+                <option value="pepsico">Pepsico</option>
+                <option value="sage">Sage</option>
+            </select>
+        </div>
+    </div><!-- /grid-a -->
     <div class="ui-grid-a">
         <div class="ui-block-a" style="padding-right: 5px;">
-            Cidade<br>
-            <input type="text" name="cidade">
+            Ordem de Serviço<br>
+            <input type="text" name="os">
         </div>
         <div class="ui-block-b" style="padding-left: 5px;">
-            Data da Manunção Preventiva<br>
-            <input type="date" name="data">
+            Loja<br>
+            <input type="text" name="cidade">
+        </div>
+    </div><!-- /grid-a -->
+    <div class="ui-grid-a">
+        <div class="ui-block-a" style="padding-right: 5px;">
+            Data Início Preventiva<br>
+            <input type="date" name="datai">
+        </div>
+        <div class="ui-block-b" style="padding-left: 5px;">
+            Data Fim Preventiva<br>
+            <input type="date" name="dataf">
         </div>
     </div><!-- /grid-a -->
     <div class="ui-grid-a">
