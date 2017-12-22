@@ -1,0 +1,28 @@
+RewriteEngine On
+
+RewriteBase  /relatorios/
+
+Rewritecond %{REQUEST_URI} !-f
+Rewritecond %{REQUEST_URI} !-d
+Rewritecond %{REQUEST_URI} !-l
+
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+#RewriteCond %{HTTP_HOST} ^www.(.*) [NC]
+
+RewriteRule ^([a-z0-9_\-]+)/?$ index.php?page=$1 [NC,L]
+
+#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+php_value upload_max_filesize 1G
+php_value post_max_size 1G
+php_value memory_limit 1G
+php_value max_execution_time 600
+#<FilesMatch "\.(html|htm|js|css|php)>
+#   FileETag None
+#   Header unset ETag
+#   Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+#   Header set Pragma "no-cache"
+#   Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+#</FilesMatch>

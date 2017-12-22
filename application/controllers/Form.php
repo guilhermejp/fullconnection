@@ -50,6 +50,7 @@ class Form extends CI_Controller {
                 $config['upload_path'] = './assets/uploads/';
                 $config['allowed_types'] = 'jpg|png|gif|bmp';
                 $config['encrypt_name'] = TRUE;
+                $config['max_size'] = 0;
                 $this->upload->initialize($config);
                 if ($this->upload->do_upload('assinatura_tecnico')) {
                     $image_details = $this->upload->data();
@@ -61,6 +62,7 @@ class Form extends CI_Controller {
                 $config['upload_path'] = './assets/uploads/';
                 $config['allowed_types'] = 'jpg|png|gif|bmp';
                 $config['encrypt_name'] = TRUE;
+                $config['max_size'] = 0;
                 $this->upload->initialize($config);
                 if ($this->upload->do_upload('assinatura_gerente')) {
                     $image_details = $this->upload->data();
@@ -80,6 +82,7 @@ class Form extends CI_Controller {
                     $_FILES['comp']['size'] = $_FILES['comprovante']['size'][$i];
                     $config['upload_path'] = "./" . $caminho_arquivo;
                     $config['allowed_types'] = 'jpg|png|gif|bmp';
+                    $config['max_size'] = 0;
                     //$config['encrypt_name'] = TRUE;
                     $config['file_name'] = $nome_arquivo . "_comprovante_" . $i;
                     $this->upload->initialize($config);
@@ -154,10 +157,10 @@ class Form extends CI_Controller {
 
         $this->email->initialize($config);
         $this->email->from('checklist@fullconnection.com.br', 'FullConnection Checklist');
-        /*$this->email->to('amanda@agenciamplan.com.br', 'Amanda');
+        $this->email->to('amanda@agenciamplan.com.br', 'Amanda');
         $this->email->cc('demian@fullconnection.com.br', 'Demian');
-        $this->email->bcc('guilherme@gcoder.com.br', 'Guilherme');*/
-        $this->email->to('guilherme@gcoder.com.br', 'Guilherme');
+        $this->email->bcc('guilherme@gcoder.com.br', 'Guilherme');
+        //$this->email->to('guilherme@gcoder.com.br', 'Guilherme');
         $this->email->subject('Full Connection - Checklist');
         $this->email->message("Novo checklist em anexo!");
         if (is_array($attach)) {

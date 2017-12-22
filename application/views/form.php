@@ -122,7 +122,7 @@ header("Content-type: text/html; charset=utf-8");
             </form>
         </div>
         <div class="last-page" data-role="page" data-theme="a" id="page_10">
-            <form name="formulario" id="formulario" action="<?= base_url('form/checklist') ?>" method="post" enctype="multipart/form-data" data-ajax="false">
+            <form name="formulario" id="formulario" action="<?= base_url('checklist') ?>" method="post" enctype="multipart/form-data" data-ajax="false">
                 <?php
 // Cabeçalho é fixo
                 include("header.php");
