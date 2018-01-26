@@ -4,7 +4,7 @@
     <div data-role="collapsibleset" data-content-theme="a" data-iconpos="right" id="div-ar-group">
     </div>
     <br>
-    <a class="ui-btn add-ar-condicionado" href="#">Adicionar Ar Condicionado</a>
+    <!--<a class="ui-btn add-ar-condicionado" href="#">Adicionar Ar Condicionado</a>-->
     <br>
     <br>
     <!--

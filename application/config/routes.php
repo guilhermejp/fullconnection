@@ -55,3 +55,31 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['checklist'] = 'form/checklist';
 $route['concluido'] = 'form/concluido';
+
+/* Rotes below are from admin */
+$route['login'] = 'users/login';
+$route['dashboard'] = 'checklist';
+$route['checklists'] = 'checklist';
+
+$route['clientes'] = 'clients';
+    $route['clientes/cadastrar'] = 'clients/insert';
+    $route['clientes/salvar'] = 'clients/save';
+    $route['clientes/editar/(:any)'] = 'clients/get/$1';
+    $route['clientes/excluir'] = 'clients/delete';
+
+
+$route['lojas/(:num)'] = 'stores/index/$1';
+    $route['lojas/(:num)/cadastrar'] = 'stores/insert/$1';
+    $route['lojas/(:num)/salvar'] = 'stores/save/$1';
+    $route['lojas/(:num)/editar/(:num)'] = 'stores/get/$1/$2';
+    $route['lojas/excluir'] = 'stores/delete';
+    
+    
+$route['equipamentos/(:num)'] = 'facilities/index/$1';
+    $route['equipamentos/(:num)/cadastrar'] = 'facilities/insert/$1';
+    $route['equipamentos/(:num)/salvar'] = 'facilities/save/$1';
+    $route['equipamentos/(:any)/editar/(:num)'] = 'facilities/get/$1/$2';
+    $route['equipamentos/excluir'] = 'facilities/delete';
+
+
+$route['log'] = 'log/listar';

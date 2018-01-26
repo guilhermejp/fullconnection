@@ -83,7 +83,7 @@
     <body>
         <table class="w100">
             <tr>
-                <td style="width: 33%"><img src="<?= FCPATH . 'assets/images/'.$cliente.'.png'; ?>" height="30px;"></td>
+                <td style="width: 33%"><img src="<?= FCPATH . @$logo ?>" height="30px;"></td>
                 <td style="width: 33%" align="center"><h2>Checklist</h2></td>
                 <td style="width: 34%" align="right"><img src="<?= FCPATH . 'assets/images/fulllogo2.png'; ?>" height="30px;"></td>
             </tr>
@@ -270,7 +270,7 @@
         $i = $ind - 1;
         ?>
 
-        <center><h4>Quadro Elétrico <?= $ind; ?></h4></center>
+        <center><h4><?= @$qe_desc[$i]; ?></h4></center>
         <table class="w100" cellpacing="0" cellpadding="0">
             <tr>
                 <td></td><td><div class="zeroheight"><?= @$qe_tipo[$i] ?></div></td>
@@ -349,7 +349,7 @@
         $i = $ind - 1;
         ?>
 
-        <center><h4>Ar Condicionado <?= $ind; ?></h4></center>
+        <center><h4><?= @$ar_desc[$i]; ?></h4></center>
         <table class="w100" cellpacing="0" cellpadding="0">
             <tr>
                 <td></td><td><div class="zeroheight"><?= @$ar_tipo[$i] ?></div></td>

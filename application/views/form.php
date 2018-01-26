@@ -21,6 +21,7 @@ header("Content-type: text/html; charset=utf-8");
         <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=2') ?>" />
         <script src="<?= base_url('assets/js/jquery-1.11.1.min.js') ?>"></script>
         <script src="<?= base_url('assets/js/jquery.mobile-1.4.5.min.js') ?>"></script>
+        <script src="<?= base_url('assets/js/ajax.js') ?>"></script>
     </head>
     <?php
     /*
@@ -32,7 +33,7 @@ header("Content-type: text/html; charset=utf-8");
     ?>
     <body>
         <div class="not-last-page" data-role="page" data-theme="a" id="page_1">
-            <form>
+            <form id="form-client">
                 <?php
                 // Cabeçalho é fixo
                 include("header.php");
@@ -159,7 +160,7 @@ header("Content-type: text/html; charset=utf-8");
                 $(this)[0].reset();
             });
 
-            $('.add-quadro').click(function () {
+            /*$('.add-quadro').click(function () {
                 qtdeQuadrosEletricos++;
                 var html = '<br>' +
                         '<div data-role="collapsible" id="set1" data-collapsed="true">' +
@@ -224,9 +225,9 @@ header("Content-type: text/html; charset=utf-8");
                 $('div[data-role=collapsible]').collapsible();
                 $('div[data-role=collapsible]').trigger('create');
                 $('#qtde_quadros_eletricos').val(qtdeQuadrosEletricos);
-            });
+            });*/
 
-            $('.add-ar-condicionado').click(function () {
+            /*$('.add-ar-condicionado').click(function () {
                 qtdeArCondicionado++;
                 var html = '<br>' +
                         '<div data-role="collapsible" id="set1" data-collapsed="true">' +
@@ -352,7 +353,7 @@ header("Content-type: text/html; charset=utf-8");
                 $('div[data-role=collapsible]').collapsible();
                 $('div[data-role=collapsible]').trigger('create');
                 $('#qtde_ar_condicionado').val(qtdeArCondicionado);
-            });
+            });*/
 
             $('.add-material').click(function () {
                 qtdeMaterial++;
@@ -374,14 +375,13 @@ header("Content-type: text/html; charset=utf-8");
                 $('.add-comprovante').before(html);
                 $('.div_comprovantes').trigger('create');
                 /*$('.comprovante').unbind('change');
-                elementoComprovante();*/
+                 elementoComprovante();*/
             });
 
             var campo = "";
             /*elementoComprovante();*/
 
             $('.submit').click(function () {
-
                 var $lastPageForm = $('.last-page').find('form');
                 $('.not-last-page').find('form').each(function () {
                     $.each($(this).find('input'), function () {
@@ -398,7 +398,237 @@ header("Content-type: text/html; charset=utf-8");
             $('select').change(function () {
                 $('[name=' + $(this).attr('id') + ']').val($(this).val());
             });
+
+            $('#cliente').change(function () {
+                ajax('form/load_stores', $('#form-client'), "carrega_lojas");
+            });
+
+            $('#cidade').change(function () {
+                ajax('form/load_facilities', $('#form-client'), "carrega_equipamentos");
+            });
         });
+
+        function carrega_lojas(retorno) {
+            html = '<option value="">Selecione uma Loja</option>';
+            $.each(retorno, function (i, item) {
+                html += '<option value="' + item[0] + '">' + item[1] + '</option>';
+            });
+            $('#cidade').html(html);
+        }
+
+        function carrega_equipamentos(retorno) {
+            html = "";
+            qtdeArCondicionado = 0;
+            $.each(retorno.ac, function (i, item) {
+                html += load_ar_condicionado(item);
+            });
+            $('#div-ar-group').html(html);
+            $('#qtde_ar_condicionado').val(qtdeArCondicionado);
+
+            html = "";
+            qtdeQuadrosEletricos = 0;
+            $.each(retorno.ep, function (i, item) {
+                qtdeQuadrosEletricos++;
+                load_quadro_eletrico(item);
+            });
+            $('#div-quadro-group').append(html);
+            $('#qtde_quadros_eletricos').val(qtdeQuadrosEletricos);
+
+            $('div[data-role=collapsible]').collapsible();
+            $('div[data-role=collapsible]').trigger('create');
+
+        }
+
+        function load_ar_condicionado(item) {
+            qtdeArCondicionado++;
+            html = '<br>' +
+                    '<div data-role="collapsible" id="set1" data-collapsed="true">' +
+                    '<h3>#A' + item.id + ' - ' + item.name + ' <small><i>clique para expandir/recolher</i></small></h3>' +
+                    '<input type="hidden" name="ar_desc[]" value="#A' + item.id + ' - ' + item.name + '">' +
+                    '<p>' +
+                    '<div class="ui-grid-a">' +
+                    '    <div class="ui-block-a" style="padding-right: 5px;">' +
+                    '        Tipo<br>' +
+                    '        <input type="text" name="ar_tipo[]" value="' + item.type + '" readonly="readonly">' +
+                    '    </div>' +
+                    '    <div class="ui-block-b" style="padding-left: 5px;">' +
+                    '        Marca<br>' +
+                    '        <input type="text" name="ar_marca[]" value="' + item.brand + '" readonly="readonly">' +
+                    '    </div>' +
+                    '</div>' +
+                    '<div class="ui-grid-a">' +
+                    '    <div class="ui-block-a" style="padding-left: 5px;">' +
+                    '        Localização e andar<br>' +
+                    '        <input type="text" name="ar_local[]" value="' + item.site + '" readonly="readonly">' +
+                    '    </div>' +
+                    '    <div class="ui-block-b" style="padding-left: 5px;">' +
+                    '        Capacidade<br>' +
+                    '        <input type="text" name="ar_capacidade[]" value="' + item.capacity + '" readonly="readonly">' +
+                    '    </div>' +
+                    '</div>' +
+                    '<div class="ui-grid-a">' +
+                    '    <div class="ui-block-a" style="padding-right: 5px;">' +
+                    '        Tensão (V)<br>' +
+                    '        <input type="text" name="ar_tensao[]" value="' + item.volts + '" readonly="readonly">' +
+                    '    </div>' +
+                    '    <div class="ui-block-b" style="padding-left: 5px;">' +
+                    '        Modelo<br>' +
+                    '        <input type="text" name="ar_modelo[]" value="' + item.model + '" readonly="readonly">' +
+                    '    </div>' +
+                    '</div>' +
+                    '<div class="ui-grid-a">' +
+                    '    <div class="ui-block-a" style="padding-left: 5px;">' +
+                    '        Número de Série<br>' +
+                    '        <input type="text" name="ar_serie[]" value="' + item.serial_number + '" readonly="readonly">' +
+                    '    </div>' +
+                    '    <div class="ui-block-b" style="padding-left: 5px;">' +
+                    '        Setor que atende<br>' +
+                    '        <input type="text" name="ar_setor[]" value="' + item.sector + '" readonly="readonly">' +
+                    '    </div>' +
+                    '</div>' +
+                    '<div class="ui-grid-a">' +
+                    '    <div class="ui-block-a" style="padding-right: 5px;">' +
+                    '        Nº pessoas no setor<br>' +
+                    '        <input type="text" name="ar_pessoas[]" value="' + item.people_sector + '" readonly="readonly">' +
+                    '    </div>' +
+                    '    <div class="ui-block-b" style="padding-left: 5px;">' +
+                    '        M² atendidos<br>' +
+                    '        <input type="text" name="ar_m2[]" value="' + item.square_meter + '" readonly="readonly">' +
+                    '    </div>' +
+                    '</div>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check1[]" value="S">5.1. Verificar e limpar filtros de ar<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check2[]" value="S">5.2. Limpar/desobstruir drenos<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check3[]" value="S">5.3. Verificar pressão de alta e baixa<br>' +
+                    '    <i class="period">PERIODICIDADE SEMESTRAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check4[]" value="S">5.4. Verificar vedação dos painéis<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check5[]" value="S">5.5. verificar vibração no equipamento<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check6[]" value="S">5.6. Verificar e limpar condensador<br>' +
+                    '    <i class="period">PERIODICIDADE SEMESTRAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check7[]" value="S">5.7. Verificar e limpar serpentina<br>' +
+                    '    <i class="period">PERIODICIDADE SEMESTRAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check8[]" value="S">5.8. Verificar vedação carenagem<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check9[]" value="S">5.9. Verificar carga de gás<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check10[]" value="S">5.10. Verificar vazamentos<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check11[]" value="S">5.11. Medir corrente<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check12[]" value="S">5.12. Verificar atuação do termostato<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check13[]" value="S">5.13. Medir tensão elétrica da alimentação<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check14[]" value="S">5.14. Medir temperatura do ar ambiente<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check15[]" value="S">5.15. Testar funcionamento dos controles remotos<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check16[]" value="S">5.16. Verificar carga de gás refrigerante<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '</p>' +
+                    '</div>';
+
+            return html;
+        }
+
+        function load_quadro_eletrico(item) {
+            html = '<br>' +
+                    '<div data-role="collapsible" id="set1" data-collapsed="true">' +
+                    '<h3>#Q' + item.id + ' - ' + item.name + ' <small><i>clique para expandir/recolher</i></small></h3>' +
+                    '<input type="hidden" name="qe_desc[]" value="#Q' + item.id + ' - ' + item.name + '">' +
+                    '<p>' +
+                    '<div class="ui-grid-a">' +
+                    '    <div class="ui-block-a" style="padding-right: 5px;">' +
+                    '        Tipo<br>' +
+                    '        <input type="text" name="qe_tipo[]" value="' + item.type + '" readonly="readonly">' +
+                    '    </div>' +
+                    '    <div class="ui-block-b" style="padding-left: 5px;">' +
+                    '        Disj entrada<br>' +
+                    '        <input type="text" name="qe_disj[]" value="' + item.switch + '" readonly="readonly">' +
+                    '    </div>' +
+                    '</div>' +
+                    '<div class="ui-grid-a">' +
+                    '    <div class="ui-block-a" style="padding-left: 5px;">' +
+                    '        Local<br>' +
+                    '        <input type="text" name="qe_local[]" value="' + item.site + '" readonly="readonly">' +
+                    '    </div>' +
+                    '    <div class="ui-block-b" style="padding-left: 5px;">' +
+                    '        Andar<br>' +
+                    '        <input type="text" name="qe_andar[]" value="' + item.floor + '" readonly="readonly">' +
+                    '    </div>' +
+                    '</div>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check1[]" value="S">4.1. Verificar estado geral e condições<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check2[]" value="S">4.2. Realizar limpeza interna e externa<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check3[]" value="S">4.3. Limpar painel frontal<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check4[]" value="S">4.4. Verificar chaves/botoeiras<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check5[]" value="S">4.5. Verificar identificação dos cirtuitos<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check6[]" value="S">4.6. Verificar Superaquecimento de cabos<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check7[]" value="S">4.7. Reapertar parafusos de conexões elétricas<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check8[]" value="S">4.8. Verificar fiações, barramentos e sistema de aterramento<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '</p>' +
+                    '</div>';
+            return html;
+        }
 
         function elementoComprovante() {
             $('.comprovante').change(function (event) {

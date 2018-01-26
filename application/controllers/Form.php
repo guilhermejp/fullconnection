@@ -24,8 +24,46 @@ class Form extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('Checklists_model');
+        $this->load->model('Clients_model');
+        $this->load->model('Stores_model');
+        $this->load->model('Air_conditioning_model');
+        $this->load->model('Eletrical_panel_model');
+    }
+
     public function index() {
-        $this->load->view('form');
+        $clients = $this->Clients_model->get_all();
+        $data['clients'] = $clients;
+
+        $this->load->view('form', $data);
+    }
+
+    public function load_stores() {
+        $data = "";
+        if ($this->input->post()) {
+            $input = $this->input->post();
+            $stores = $this->Stores_model->where('id_client', $input['cliente'])->get_all();
+            if (is_array($stores)) {
+                foreach ($stores as $value) {
+                    $data[] = array($value->id, $value->name);
+                }
+            }
+        }
+        echo json_encode($data);
+    }
+
+    public function load_facilities() {
+        $data = "";
+        if ($this->input->post()) {
+            $input = $this->input->post();
+            $air_cond = $this->Air_conditioning_model->where(array('id_client' => $input['cliente'], 'id_store' => $input['cidade']))->get_all();
+            $panel = $this->Eletrical_panel_model->where(array('id_client' => $input['cliente'], 'id_store' => $input['cidade']))->get_all();
+            $data['ac'] = $air_cond;
+            $data['ep'] = $panel;
+        }
+        echo json_encode($data);
     }
 
     public function checklist() {
@@ -37,7 +75,13 @@ class Form extends CI_Controller {
             $input['cidade'] = ( $input['cidade'] == "" ? "loja" : $input['cidade']);
             $input['os'] = ( $input['os'] == "" ? "os" : $input['os']);
 
-            $caminho_arquivo = "checklists/" . $input['cliente'] . "/" . date("Y-m", strtotime($input['datai'])) . "/";
+            $client = $this->Clients_model->get($input['cliente']);
+            $input['cliente'] = $client->name;
+            $input['logo'] = $client->logo;
+            $store = $this->Stores_model->get($input['cidade']);
+            $input['cidade'] = $store->name;
+
+            $caminho_arquivo = "files/" . $input['cliente'] . "/" . date("Y-m", strtotime($input['datai'])) . "/";
             $nome_arquivo = str_replace(" ", "-", $input['cliente']) .
                     "_" . str_replace(" ", "-", $input['cidade'])
                     . "_" . str_replace(" ", "-", $input['os'])
@@ -102,7 +146,9 @@ class Form extends CI_Controller {
         }
 
         $input['datai'] = date("d/m/Y", strtotime($input['datai']));
+        $datai = $input['datai'];
         $input['dataf'] = date("d/m/Y", strtotime($input['dataf']));
+        $dataf = $input['dataf'];
         $input['data_aceite'] = date("d/m/Y", strtotime($input['data_aceite']));
 
         $this->load->library('pdfgenerator');
@@ -114,8 +160,7 @@ class Form extends CI_Controller {
         $arq_saida = $caminho_arquivo . $nome_arquivo . ".pdf";
         file_put_contents($arq_saida, $pdf);
         $attach[] = $arq_saida;
-        $this->sendEmail($attach);
-
+        //$this->sendEmail($attach);
         // Apagar as imagens recebidas
         @unlink($input['assinatura_tecnico']);
         @unlink($input['assinatura_gerente']);
@@ -124,6 +169,17 @@ class Form extends CI_Controller {
                 @unlink($value);
             }
         }
+
+        // Insert the checklist generate into database
+
+        $insert = array('id_client' => $client->id,
+                        'id_store' => $store->id,
+                        'date_start' => date('Y-m-d ', strtotime($datai)).$input['hora_inicial'],
+                        'date_end' => date('Y-m-d ', strtotime($dataf)).$input['hora_final'],
+                        'technicians' => $input['tecnicos'],
+                        'status' => 0,
+                        'file' => $arq_saida);
+        $this->Checklists_model->insert($insert);
 
         redirect(base_url('concluido'), 'refresh');
     }
@@ -180,13 +236,13 @@ class Form extends CI_Controller {
     public function upload() {
 
         $input = $this->input->post();
-        
+
         $input['cliente'] = ( $input['cliente'] == "" ? "nao_informado" : $input['cliente']);
         $input['datai'] = ( $input['datai'] == "" ? date("Y-m-d") : $input['datai']);
         $input['cidade'] = ( $input['cidade'] == "" ? "loja" : $input['cidade']);
         $input['os'] = ( $input['os'] == "" ? "os" : $input['os']);
 
-        $caminho_arquivo = "checklists/" . $input['cliente'] . "/" . date("Y-m", strtotime($input['datai'])) . "/";
+        $caminho_arquivo = "files/" . $input['cliente'] . "/" . date("Y-m", strtotime($input['datai'])) . "/";
         $nome_arquivo = str_replace(" ", "-", $input['cliente']) .
                 "_" . str_replace(" ", "-", $input['cidade'])
                 . "_" . str_replace(" ", "-", $input['os'])
@@ -210,12 +266,12 @@ class Form extends CI_Controller {
             $this->upload->initialize($config);
             if ($this->upload->do_upload('comp')) {
                 $image_details = $this->upload->data();
-                echo json_encode(array("imagem"=>$config['upload_path'] . $image_details['file_name'],
-                                       "retorno"=>true));
+                echo json_encode(array("imagem" => $config['upload_path'] . $image_details['file_name'],
+                    "retorno" => true));
                 return true;
             }
         }
-        echo json_encode(array("retorno"=>false,"tamanho"=>$_FILES['comprovante']['size'], "error"=>$this->upload->display_errors()));
+        echo json_encode(array("retorno" => false, "tamanho" => $_FILES['comprovante']['size'], "error" => $this->upload->display_errors()));
         return false;
     }
 

@@ -4,7 +4,7 @@
     <div data-role="collapsibleset" data-content-theme="a" data-iconpos="right" id="div-quadro-group">
     </div>
     <br>
-    <a class="ui-btn add-quadro" href="#">Adicionar Quadro Elétrico</a>
+    <!--<a class="ui-btn add-quadro" href="#">Adicionar Quadro Elétrico</a>-->
     <br>
 
     <br>
