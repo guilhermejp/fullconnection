@@ -52,7 +52,7 @@
                                         echo "<td>";
                                         echo '<a href="' . base_url('equipamentos/') . $value[0] . '"><span class="label label-default"><i class="fa fa-cubes"></i> &nbsp; Acessar Equipamentos</span></a> ' .
                                         '<a href="' . base_url('lojas/' . $id_client . '/editar/') . $value[0] . '"><span class="label label-info"><i class="fa fa-pencil-square-o"></i> &nbsp; Editar</span></a> ' .
-                                        '<a href="javascript:void(0);" class="delete" codigo="' . $value[0] . '" nome="' . $value[2] . '"><span class="label label-danger"><i class="fa fa-times"></i> &nbsp; Excluir</span></a> ';
+                                        '<a href="javascript:void(0);" onclick="javascript:deletar(this);" codigo="' . $value[0] . '" nome="' . $value[2] . '"><span class="label label-danger"><i class="fa fa-times"></i> &nbsp; Excluir</span></a> ';
                                         echo "</td>";
                                         echo "</tr>";
                                     }
@@ -122,11 +122,12 @@
             }
         });
 
-        /* Buttons */
-        $('.delete').click(function () {
-            $('#id').val($(this).attr('codigo'));
+    });
+    
+    function deletar(campo){
+        $('#id').val($(campo).attr('codigo'));
             $('#modal-confirm-danger .modal-title').text("Excluir");
-            $('#modal-confirm-danger .modal-body').text('Deseja realmente excluir a loja # ' + $(this).attr('codigo') + ' - ' + $(this).attr('nome') + ' ?');
+            $('#modal-confirm-danger .modal-body').text('Deseja realmente excluir a loja # ' + $(campo).attr('codigo') + ' - ' + $(campo).attr('nome') + ' ?');
             $('#modal-confirm-danger').modal({
                 backdrop: true,
                 keyboard: true
@@ -136,9 +137,7 @@
                                 .submit();
                     });
             return false;
-        });
-
-    });
+    }
 </script>
 </body>
 </html>

@@ -17,6 +17,7 @@ class Clients extends CI_Controller {
 
     public function index($msg = "") {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Clients::index() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -35,6 +36,8 @@ class Clients extends CI_Controller {
                     $this->Air_conditioning_model->count($where) + $this->Eletrical_panel_model->count($where),
                     $value->logo);
             }
+        } else {
+            log_message('debug', 'Client::index() - Não há clientes a listar ou erro: ' . $this->db->db_debug);
         }
 
         $this->load->view('admin/listar_clientes', $data);
@@ -42,6 +45,7 @@ class Clients extends CI_Controller {
 
     public function insert() {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Clients::insert() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -55,6 +59,7 @@ class Clients extends CI_Controller {
 
     public function get($id) {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Clients::get() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -64,6 +69,9 @@ class Clients extends CI_Controller {
             $data['message'] = "";
 
             $data = (array) $this->Clients_model->get($id);
+            if (!$data) {
+                log_message('error', 'Clients::get() - Erro ao obter o cliente (' . $id . ') :' . $this->db->db_debug);
+            }
 
             $data['functions']['save'] = true;
             $data['functions']['delete'] = true;
@@ -77,6 +85,7 @@ class Clients extends CI_Controller {
 
     public function save() {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Clients::save() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -104,10 +113,15 @@ class Clients extends CI_Controller {
             unset($input['logo_temp']);
 
             if (is_numeric($input['id'])) {
-                $this->Clients_model->update($input, $input['id'], true);
+                if(!$this->Clients_model->update($input, $input['id'], true)){
+                    log_message('error', 'Clients::save() - Erro ao atualizar o cliente ('.$input['id'].'):' . $this->db->db_debug);
+                }
                 $data['message'] = ($data['message'] == "" ? msg("Cliente alterado com sucesso!", "success") : $data['message']);
             } else {
                 $id = $this->Clients_model->insert($input);
+                if (!$id) {
+                    log_message('error', 'Clientes::save() - Erro ao inserir o cliente:' . $this->db->db_debug);
+                }
                 $data['id'] = $id;
                 $data['message'] = ($data['message'] == "" ? msg("Cliente cadastrado com sucesso!", "success") : $data['message']);
             }
@@ -118,12 +132,14 @@ class Clients extends CI_Controller {
 
             $this->load->view('admin/edit_clients', $data);
         } else {
+            log_message('error', 'Clients::save() - Acesso indevido sem POST!');
             redirect('clientes/cadastrar');
         }
     }
 
     public function delete() {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Clients::delete() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -135,17 +151,25 @@ class Clients extends CI_Controller {
             // Check if exists stores before delete
             $where = array('id_client' => $input['id']);
             if ($this->Stores_model->count($where) > 0) {
+                log_message('error', 'Clients::delete() - Existem lojas vinculadas a este clientes que devem ser excluidas primeiro ('.$input['id'].'):' . $this->db->db_debug);
                 $this->index(msg("Existem lojas vinculadas a este clientes que devem ser excluidas primeiro!", "error", 5));
             } else {
 
-                if (!$this->Clients_model->delete($input['id'])) {
-                    redirect('clientes');
+                $where = array('id_client' => $input['id']);
+                if ($this->Stores_model->count($where) > 0) {
+                    log_message('error', 'Clients::delete() - Não é possível excluir o cliente pois existem checklists vinculados a ele ('.$input['id'].'):' . $this->db->db_debug);
+                    $this->index(msg("Não é possível excluir o cliente pois existem checklists vinculados a ele!", "error", 5));
                 } else {
-                    $this->index(msg("Cliente excluído com sucesso!", "success"));
+                    if (!$this->Clients_model->delete($input['id'])) {
+                        redirect('clientes');
+                    } else {
+                        log_message('error', 'Clients::delete() - Erro ao remover o cliente ('.$input['id'].'):' . $this->db->db_debug);
+                        $this->index(msg("Cliente excluído com sucesso!", "success"));
+                    }
                 }
-                
             }
         } else {
+            log_message('error', 'Clients::delete() - Acesso indevido sem POST!');
             redirect('clientes');
         }
     }
@@ -162,9 +186,11 @@ class Clients extends CI_Controller {
             if (!$this->upload->do_upload($name_file)) {
                 return $this->upload->display_errors();
             } else {
+                log_message('error', 'Clients::upload_file() - Erro ao salvar logo do cliente: ' . $this->upload->display_errors());
                 return $this->upload->data();
             }
         } else {
+            log_message('error', 'Clients::upload_file() - Logo a ser salva está com tamanho zerado.');
             return false;
         }
     }

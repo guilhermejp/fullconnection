@@ -14,7 +14,8 @@
             <a class="ui-btn ui-btn-icon-left ui-icon-carat-l" href="#page_7">Anterior</a>
         </div>
         <div class="ui-block-b">
-            <a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="#page_9">Próximo</a>
+            <!--<a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="#page_9">Próximo</a>-->
+            <a class="ui-btn ui-btn-icon-right ui-icon-carat-r submit" href="#">Finalizar</a>
         </div>
     </div><!-- /grid-a -->
 </div>
@@ -29,8 +30,8 @@
             <a class="numberCircle ok" href="#page_6">5</a>
             <a class="numberCircle ok" href="#page_7">6</a>
             <a class="numberCircle" href="#page_8">7</a>
-            <a class="numberCircle" href="#page_9">8</a>
-            <a class="numberCircle" href="#page_10" style="margin-right: 0px;">9</a>
+            <!--<a class="numberCircle" href="#page_9">8</a>
+            <!--<a class="numberCircle" href="#page_10" style="margin-right: 0px;">9</a>-->
         </center>
     </h1>
 </div>

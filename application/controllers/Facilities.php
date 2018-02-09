@@ -16,6 +16,7 @@ class Facilities extends CI_Controller {
 
     public function index($id_store, $msg = "") {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Facilities::index() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -25,10 +26,16 @@ class Facilities extends CI_Controller {
         $data['id_store'] = $id_store;
 
         $store = $this->Stores_model->get($id_store);
+        if (!$store) {
+            log_message('error', 'Facilities::index() - Erro ao obter a loja (' . $id_store . ') :' . $this->db->db_debug);
+        }
         $data['store_name'] = $store->name;
         $data['id_store'] = $store->id;
 
         $client = $this->Clients_model->get($store->id_client);
+        if (!$client) {
+            log_message('error', 'Facilities::index() - Erro ao obter a loja (' . $store->id_client . ') :' . $this->db->db_debug);
+        }
         $data['client_name'] = $client->name;
         $data['id_client'] = $client->id;
 
@@ -43,6 +50,8 @@ class Facilities extends CI_Controller {
                     $value->site,
                     "A");
             }
+        } else {
+            log_message('debug', 'Facilities::index() - Erro ao obter a ar condicionado (' . $id_store . ') :' . $this->db->db_debug);
         }
 
         $eletrical_panel = $this->Eletrical_panel_model->where(array('id_client' => $client->id, 'id_store' => $store->id))->get_all();
@@ -56,6 +65,8 @@ class Facilities extends CI_Controller {
                     $value->site,
                     "Q");
             }
+        } else {
+            log_message('error', 'Facilities::index() - Erro ao obter a ar painel eletrico (' . $id_store . ') :' . $this->db->db_debug);
         }
 
         $this->load->view('admin/listar_facilities', $data);
@@ -63,6 +74,7 @@ class Facilities extends CI_Controller {
 
     public function insert($id_store) {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Facilities::insert() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -84,6 +96,7 @@ class Facilities extends CI_Controller {
 
     public function get($typef = "", $id = "") {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Facilities::get() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -101,10 +114,16 @@ class Facilities extends CI_Controller {
             $data['typef'] = $typef;
 
             $store = $this->Stores_model->get($data['id_store']);
+            if (!$store) {
+                log_message('error', 'Facilities::get() - Erro ao obter a loja (' . $data['id_store'] . ') :' . $this->db->db_debug);
+            }
             $data['store_name'] = $store->name;
             $data['id_store'] = $store->id;
 
             $client = $this->Clients_model->get($data['id_client']);
+            if (!$client) {
+                log_message('error', 'Facilities::get() - Erro ao obter o cliente (' . $data['id_client'] . ') :' . $this->db->db_debug);
+            }
             $data['client_name'] = $client->name;
             $data['id_client'] = $client->id;
 
@@ -120,6 +139,7 @@ class Facilities extends CI_Controller {
 
     public function save($id_store) {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Facilities::save() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -136,30 +156,49 @@ class Facilities extends CI_Controller {
             if (is_numeric($input['id'])) {
                 // Check if Air_conditioning or Eletrical_panal
                 if ($typef == "A") {
-                    $this->Air_conditioning_model->update($input, $input['id'], true);
+                    if (!$this->Air_conditioning_model->update($input, $input['id'], true)) {
+                        log_message('error', 'Facilities::save() - Erro ao atualizar o ar condicionado (' . $input['id'] . ') :' . $this->db->db_debug);
+                    }
+
                     $data['message'] = msg("Equipamento alterado com sucesso!", "success");
                 } elseif ($typef == "Q") {
-                    $this->Eletrical_panel_model->update($input, $input['id'], true);
+                    if (!$this->Eletrical_panel_model->update($input, $input['id'], true)) {
+                        log_message('error', 'Facilities::save() - Erro ao atualizar o painel eletrico (' . $input['id'] . ') :' . $this->db->db_debug);
+                    }
                     $data['message'] = msg("Equipamento alterado com sucesso!", "success");
                 }
             } else {
                 // Check if Air_conditioning or Eletrical_panel
                 if ($typef == "A") {
                     $id = $this->Air_conditioning_model->insert($input);
+                    if (!$id) {
+                        log_message('error', 'Facilities::save() - Erro ao inserir ar condicionado :' . $this->db->db_debug);
+                    }
                     $data['id'] = $id;
                     $data['message'] = msg("Equipamento cadastrado com sucesso!", "success");
                 } elseif ($typef == "Q") {
                     $id = $this->Eletrical_panel_model->insert($input);
+                    if (!$id) {
+                        log_message('error', 'Facilities::save() - Erro ao inserir painel eletrico :' . $this->db->db_debug);
+                    }
                     $data['id'] = $id;
                     $data['message'] = msg("Equipamento cadastrado com sucesso!", "success");
                 }
             }
 
             $store = $this->Stores_model->get($id_store);
+            if (!$store) {
+                log_message('error', 'Facilities::save() - Erro ao obter loja (' . $id_store . '):' . $this->db->db_debug);
+            }
+            
             $data['store_name'] = $store->name;
             $data['id_store'] = $store->id;
 
             $client = $this->Clients_model->get($store->id_client);
+            if (!$client) {
+                log_message('error', 'Facilities::save() - Erro ao obter cliente (' . $store->id_client . '):' . $this->db->db_debug);
+            }
+            
             $data['client_name'] = $client->name;
             $data['id_client'] = $client->id;
 
@@ -169,12 +208,14 @@ class Facilities extends CI_Controller {
 
             $this->load->view('admin/edit_facilities', $data);
         } else {
+            log_message('error', 'Facilities::save() - Acesso indevido sem POST!');
             redirect('equipamentos/' . $id_store . '/cadastrar');
         }
     }
 
     public function delete() {
         if (!$this->session->userdata('username')) {
+            log_message('error', 'Facilities::delete() - Tentativa de acesso sem efetuar login!');
             redirect('login');
             return false;
         }
@@ -187,16 +228,19 @@ class Facilities extends CI_Controller {
                 if (!$this->Air_conditioning_model->delete($input['id'])) {
                     redirect('clientes');
                 } else {
+                    log_message('error', 'Facilities::delete() - Erro ao excluir ar condicionado (' . $input['id'] . '):' . $this->db->db_debug);
                     $this->index($input['id_store'], msg("Equipamento excluído com sucesso!", "success"));
                 }
             } elseif ($input['typef'] == "Q") {
                 if (!$this->Eletrical_panel_model->delete($input['id'])) {
                     redirect('clientes');
                 } else {
+                    log_message('error', 'Facilities::delete() - Erro ao excluir painel eletrico (' . $input['id'] . '):' . $this->db->db_debug);
                     $this->index($input['id_store'], msg("Equipamento excluído com sucesso!", "success"));
                 }
             }
         } else {
+            log_message('error', 'Facilities::delete() - Acesso indevido sem POST!');
             redirect('lojas/' . $input['id_client']);
         }
     }

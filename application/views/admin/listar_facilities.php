@@ -60,7 +60,7 @@
                                         echo "<td>" . $value[5] . "</td>";
                                         echo "<td>";
                                         echo '<a href="' . base_url('equipamentos/' . $value[6] . '/editar/') . $value[0] . '"><span class="label label-info"><i class="fa fa-pencil-square-o"></i> &nbsp; Editar</span></a> ' .
-                                        '<a href="javascript:void(0);" class="delete" codigo="' . $value[0] . '" nome="' . $value[3] . '" tipo="' . $value[6] . '"><span class="label label-danger"><i class="fa fa-times"></i> &nbsp; Excluir</span></a> ';
+                                        '<a href="javascript:void(0);" onclick="javascript:deletar(this);" codigo="' . $value[0] . '" nome="' . $value[3] . '" tipo="' . $value[6] . '"><span class="label label-danger"><i class="fa fa-times"></i> &nbsp; Excluir</span></a> ';
                                         echo "</td>";
                                         echo "</tr>";
                                     }
@@ -130,12 +130,13 @@
             }
         });
 
-        /* Buttons */
-        $('.delete').click(function () {
-            $('#id').val($(this).attr('codigo'));
-            $('#typef').val($(this).attr('tipo'));
+    });
+    
+    function deletar(campo){
+            $('#id').val($(campo).attr('codigo'));
+            $('#typef').val($(campo).attr('tipo'));
             $('#modal-confirm-danger .modal-title').text("Excluir");
-            $('#modal-confirm-danger .modal-body').text('Deseja realmente excluir o equipamento # ' + $(this).attr('codigo') + ' - ' + $(this).attr('nome') + ' ?');
+            $('#modal-confirm-danger .modal-body').text('Deseja realmente excluir o equipamento # ' + $(campo).attr('codigo') + ' - ' + $(campo).attr('nome') + ' ?');
             $('#modal-confirm-danger').modal({
                 backdrop: true,
                 keyboard: true
@@ -144,10 +145,8 @@
                         $('#form-facilities').attr('action', '<?= base_url('equipamentos/excluir'); ?>')
                                 .submit();
                     });
-            return false;
-        });
-
-    });
+            return false;    
+    }
 </script>
 </body>
 </html>

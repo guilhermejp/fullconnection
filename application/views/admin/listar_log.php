@@ -8,8 +8,8 @@
             <small>Histórico de eventos do sistema, consulte acessos, erros, e-mail, etc.</small>
         </h1>
         <ol class="breadcrumb">
-            <li class="active"><a href="<?=base_url('clientes')?>"><i class="fa fa-users"></i> Clientes</a></li>
-            <li class="active"><a href="<?=base_url('lojas')?>"><i class="fa fa-building-o"></i> Lojas</a></li>
+            <li class="active"><a href="<?= base_url('clientes') ?>"><i class="fa fa-users"></i> Clientes</a></li>
+            <li class="active"><a href="<?= base_url('lojas') ?>"><i class="fa fa-building-o"></i> Lojas</a></li>
         </ol>
     </section>
 
@@ -19,63 +19,47 @@
             <div class="col-xs-12">
                 <div class="box">
                     <!-- /.box-header -->
-                    <div class="box-header">
-                        <button type="button" class="btn btn-sm btn-default"><i class="fa fa-building-o"></i> &nbsp; Adicionar Loja</button>
-                    </div>
+                    <form method="post" name="form-log" id="form-log">
+                        <div class="box-header">
+                            <p><b>Selecione a data que deseja visualizar o Log</b></p>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="date" name="date" value="<?= @$date ?>">
+                            </div>
+                        </div>
+                    </form>
                     <div class="box-body">
                         <table id="datatable_checklists" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>Data/Hora</th>
-                                    <th>Programa</th>
-                                    <th>Usuário</th>
-                                    <th>Evento</th>
-                                    <th>Erro</th>
-                                    <th>Detalhes</th>
+                                    <th>Tipo</th>
+                                    <th>Mensagem</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>18/01/2018 10:13:12</td>
-                                    <td>User</td>
-                                    <td>admin</td>
-                                    <td>acesso ao sistema</td>
-                                    <td>OK</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>18/01/2018 10:15:22</td>
-                                    <td>Checklists</td>
-                                    <td>admin</td>
-                                    <td>reenviar e-mail para gerente</td>
-                                    <td>SMTP not configured.</td>
-                                    <td>email: gerente1@nike.com.br<br>smtp: smtp.fullconnection.com.br<br>port: 587<br>from: noreply@fullconnection.com.br</td>
-                                </tr>
-                                <tr>
-                                    <td>18/01/2018 10:22:12</td>
-                                    <td>Formulario Checklist</td>
-                                    <td>técnico</td>
-                                    <td>acesso inicial ao formulário</td>
-                                    <td>OK</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>18/01/2018 10:58:32</td>
-                                    <td>Formulario Checklist</td>
-                                    <td>técnico</td>
-                                    <td>upload fotos</td>
-                                    <td>OK</td>
-                                    <td>name: img01.jpg<br>size: 1.5mb</td>
+                                <?php
+                                if (is_array(@$log)) {
+                                    foreach ($log as $value) {
+                                        ?>
+                                        <tr>
+                                            <td><?= $value['date'] ?></td>
+                                            <td><?= $value['type'] ?></td>
+                                            <td><?= $value['message'] ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                                ?>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Data/Hora</th>
-                                    <th>Programa</th>
-                                    <th>Usuário</th>
-                                    <th>Evento</th>
-                                    <th>Erro</th>
-                                    <th>Detalhes</th>
+                                    <th>Tipo</th>
+                                    <th>Mensagem</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -99,6 +83,7 @@
 
 <script>
     $(function () {
+
         $('#datatable_checklists').DataTable({
             "language": {
                 "sEmptyTable": "Nenhum registro encontrado",
@@ -122,9 +107,20 @@
                     "sSortAscending": ": Ordenar colunas de forma ascendente",
                     "sSortDescending": ": Ordenar colunas de forma descendente"
                 }
-            }
+            },
+            "order": [[0, "desc"]]
         });
+
+        $('#date').datepicker({format: 'dd/mm/yyyy'});
+
+        $('#date').change(function () {
+            var date = $(this).val();
+            var newdate = date.split("/").reverse().join("-");
+            document.location.href = '<?= base_url('log/') ?>' + newdate;
+        });
+
     });
+
 </script>
 </body>
 </html>

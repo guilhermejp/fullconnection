@@ -7,8 +7,8 @@
             <small>Adicione, edite e exclua o cadastro do cliente</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="<?= base_url('clientes') ?>"><i class="fa fa-users"></i> <?=$client_name?></a></li>
-            <li><a href="<?= base_url('lojas/'.$id_client) ?>"><i class="fa fa-building"></i> Lojas </a></li>
+            <li><a href="<?= base_url('clientes') ?>"><i class="fa fa-users"></i> <?= $client_name ?></a></li>
+            <li><a href="<?= base_url('lojas/' . $id_client) ?>"><i class="fa fa-building"></i> Lojas </a></li>
             <li class="active"><a><i class="fa fa-building-o"></i> Cadastrar</a></li>
         </ol>
     </section>
@@ -21,29 +21,29 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title"># <?=@$id?></h3>
+                        <h3 class="box-title"># <?= @$id ?></h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" name="form-stores" id="form-stores" method="post" action="<?= base_url('lojas/'.$id_client.'/salvar'); ?>" enctype="multipart/form-data">
-                        <input type="hidden" class="form-control" id="id" name="id" value="<?=@$id?>">
+                    <form role="form" name="form-stores" id="form-stores" method="post" action="<?= base_url('lojas/' . $id_client . '/salvar'); ?>" enctype="multipart/form-data">
+                        <input type="hidden" class="form-control" id="id" name="id" value="<?= @$id ?>">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="client">Cliente</label>
-                                <input type="hidden" class="form-control" id="id_client" name="id_client" value="<?=$id_client?>">
-                                <input type="text" class="form-control" id="client_name" name="client_name" value="<?=@$client_name?>" disabled="disabled">
+                                <input type="hidden" class="form-control" id="id_client" name="id_client" value="<?= $id_client ?>">
+                                <input type="text" class="form-control" id="client_name" name="client_name" value="<?= @$client_name ?>" disabled="disabled">
                             </div>
                             <div class="form-group">
                                 <label for="name">Nome da Loja</label>
-                                <input type="text" class="form-control" id="name" name="name" value="<?=@$name?>" placeholder="Nome ou descrição da loja" required="required">
+                                <input type="text" class="form-control" id="name" name="name" value="<?= @$name ?>" placeholder="Nome ou descrição da loja" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="manager_name">Nome do Gerente da Loja</label>
-                                <input type="text" class="form-control" id="manager_name" name="manager_name" value="<?=@$manager_name?>" placeholder="Nome do Gerente ou Responsável pela Loja no cliente"  required="required">
+                                <input type="text" class="form-control" id="manager_name" name="manager_name" value="<?= @$manager_name ?>" placeholder="Nome do Gerente ou Responsável pela Loja no cliente"  required="required">
                             </div>
                             <div class="form-group">
                                 <label for="manager_email">Email do Gerente da Loja <h6><i class="fa fa-exclamation-circle text-yellow"></i> &nbsp; A aprovação do Checklist será enviada para esta conta de e-mail</h6></label>
-                                <input type="email" class="form-control" id="manager_email" name="manager_email" value="<?=@$manager_email?>" placeholder="email@cliente.com.br" required="required">
+                                <input type="email" class="form-control" id="manager_email" name="manager_email" value="<?= @$manager_email ?>" placeholder="email@cliente.com.br" required="required">
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -54,11 +54,11 @@
                             <?php } else { ?>
                                 <button class="btn btn-sm btn-default" disabled="disabled">Salvar</button>
                             <?php } if ($functions['delete']) { ?>
-                                <button class="btn btn-sm btn-warning excluir">Excluir</button>
+                                <button class="btn btn-sm btn-warning excluir" onclick="javascript:excluir();">Excluir</button>
                             <?php } else { ?>
                                 <button class="btn btn-sm btn-default" disabled="disabled">Excluir</button>
                             <?php } if ($functions['new']) { ?>
-                                <button class="btn btn-sm btn-info new">Novo</button>
+                                <button class="btn btn-sm btn-info new" onclick="javascript:novo();">Novo</button>
                             <?php } else { ?>
                                 <button class="btn btn-sm btn-default" disabled="disabled">Novo</button>
                             <?php } ?>
@@ -88,26 +88,34 @@
         $('#name').focus();
 
         $('.excluir').click(function () {
-            $('#modal-confirm-danger .modal-title').text("Excluir");
-            $('#modal-confirm-danger .modal-body').text('Deseja realmente excluir esta Loja?');
-            $('#modal-confirm-danger').modal({
-                backdrop: true,
-                keyboard: true
-            })
-                    .one('click', '.yes', function (e) {
-                        $('#form-stores').attr('action', '<?= base_url('lojas/excluir/'); ?>');
-                        $('#form-stores').submit();
-                    });
-
             return false;
-
+            gjps
         });
 
         $('.new').click(function () {
-            document.location.href = "<?= base_url('lojas/'.$id_client.'/cadastrar'); ?>";
             return false;
         });
     });
+
+    function excluir() {
+        $('#modal-confirm-danger .modal-title').text("Excluir");
+        $('#modal-confirm-danger .modal-body').text('Deseja realmente excluir esta Loja?');
+        $('#modal-confirm-danger').modal({
+            backdrop: true,
+            keyboard: true
+        })
+                .one('click', '.yes', function (e) {
+                    $('#form-stores').attr('action', '<?= base_url('lojas/excluir/'); ?>');
+                    $('#form-stores').submit();
+                });
+
+        return false;
+    }
+
+    function novo() {
+        document.location.href = "<?= base_url('lojas/' . $id_client . '/cadastrar'); ?>";
+        return false;
+    }
 </script>
 </body>
 </html>

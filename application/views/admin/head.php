@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="<?= base_url('assets/bower_components/Ionicons/css/ionicons.min.css'); ?>">
         <!-- DataTables -->
         <link rel="stylesheet" href="<?= base_url('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css'); ?>">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="<?= base_url('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css');?>">
         <!-- Theme style -->
         <link rel="stylesheet" href="<?= base_url('assets/dist/css/AdminLTE.min.css'); ?>">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -302,3 +304,4 @@
                 }
 
             </script>
+            <script src="<?= base_url('assets/js/ajax.js') ?>"></script>

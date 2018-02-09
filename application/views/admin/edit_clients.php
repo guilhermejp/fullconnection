@@ -41,7 +41,7 @@
                                 </label>
                                 <input type="file" id="logo" name="logo">
                             </div>
-                            <img src="<?= base_url(@$logo); ?>" height="100px;">
+                            <img src="<?= base_url(@$logo); ?>" height="100px;" alt="">
                         </div>
                         <!-- /.box-body -->
 

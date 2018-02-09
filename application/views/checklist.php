@@ -531,7 +531,7 @@
     <p><?= @$justificativa ?></p>
 
     <br>
-    <h3 class="header">PESQUISA DE QUALIDADE</h3>
+    <!--<h3 class="header">PESQUISA DE QUALIDADE</h3>
     <hr>
     <table class="w100" cellpacing="0" cellpadding="0">
         <tr>
@@ -565,8 +565,8 @@
     </table>
     <br>
     <hr>
-    <br>
-    <center><h4 class="header">DECLARO QUE ESTOU DE ACORDO COM TODAS AS INFORMAÇÕES AQUI RELATADAS</h4></center>
+    <br>-->
+    <!--<center><h4 class="header">DECLARO QUE ESTOU DE ACORDO COM TODAS AS INFORMAÇÕES AQUI RELATADAS</h4></center>
     <br>
 
     <table class="w100" cellpacing="0" cellpadding="0">
@@ -580,6 +580,6 @@
             <td><div align="center">DATA</div></td>
             <td><div align="center">GERENTE DA LOJA</div></td>
         </tr>
-    </table>
+    </table>-->
 </body>
 </html>

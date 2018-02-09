@@ -102,8 +102,8 @@ header("Content-type: text/html; charset=utf-8");
                 ?>
             </form>
         </div>
-        <div class="not-last-page" data-role="page" data-theme="a" id="page_8">
-            <form>
+        <div class="last-page" data-role="page" data-theme="a" id="page_8">
+            <form name="formulario" id="formulario" action="<?= base_url('checklist') ?>" method="post" enctype="multipart/form-data" data-ajax="false">
                 <?php
                 // Cabeçalho é fixo
                 include("header.php");
@@ -112,26 +112,26 @@ header("Content-type: text/html; charset=utf-8");
                 ?>
             </form>
         </div>
-        <div class="not-last-page" data-role="page" data-theme="a" id="page_9">
-            <form>
+        <!--<div class="last-page" data-role="page" data-theme="a" id="page_9">
+            <form name="formulario" id="formulario" action="<?= base_url('checklist') ?>" method="post" enctype="multipart/form-data" data-ajax="false">
                 <?php
                 // Cabeçalho é fixo
-                include("header.php");
+                //include("header.php");
                 // Conteúdo da página 2
-                include("page_9.php")
+                //include("page_9.php")
                 ?>
             </form>
-        </div>
-        <div class="last-page" data-role="page" data-theme="a" id="page_10">
+        </div>-->
+        <!--<div class="last-page" data-role="page" data-theme="a" id="page_10">
             <form name="formulario" id="formulario" action="<?= base_url('checklist') ?>" method="post" enctype="multipart/form-data" data-ajax="false">
                 <?php
 // Cabeçalho é fixo
-                include("header.php");
+                //include("header.php");
 // Conteúdo da página 2
-                include("page_10.php")
+                //include("page_10.php")
                 ?>
             </form>
-        </div>
+        </div>-->
     </body>
     <div class="carregando">
         <center>

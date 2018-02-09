@@ -31,15 +31,20 @@ class Users extends CI_Controller {
                 if(isset($user->status) && $user->status == "1"){
                     $this->session->set_userdata('username',$user->user);
                     redirect('dashboard');
+                    log_message('debug', 'Users::logon() - Acesso liberado!');
                 }else if(isset($user->status) && $user->status == "0"){
                     $data['message'] = "Usuário não está ativo!";
                     $data['return'] = false;
                     $this->load->view('admin/login',$data);
+                    log_message('debug', 'Users::logon() - Usuário não está ativo!');
                 }else{
                     $data['message'] = "Usuário e/ou senha Inválidos";
                     $data['return'] = false;
                     $this->load->view('admin/login',$data);
+                    log_message('debug', 'Users::logon() - Usuário e/ou senha Inválidos');
                 }
+            }else{
+                log_message('debug', 'Users::logon() - Tentativa de acesso indevida, não contém POST');
             }
 
         }

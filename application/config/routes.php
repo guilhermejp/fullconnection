@@ -55,11 +55,15 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['checklist'] = 'form/checklist';
 $route['concluido'] = 'form/concluido';
+$route['approval/confirm'] = 'checklist/approval_confirm';
+$route['approval/(:any)'] = 'checklist/approval/$1';
 
 /* Rotes below are from admin */
 $route['login'] = 'users/login';
 $route['dashboard'] = 'checklist';
 $route['checklists'] = 'checklist';
+$route['checklists/reenviar'] = 'checklist/resend_approval';
+$route['checklists/comprovantes'] = 'checklist/load_files';
 
 $route['clientes'] = 'clients';
     $route['clientes/cadastrar'] = 'clients/insert';
@@ -83,3 +87,4 @@ $route['equipamentos/(:num)'] = 'facilities/index/$1';
 
 
 $route['log'] = 'log/listar';
+$route['log/(:any)'] = 'log/listar/$1';
