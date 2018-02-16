@@ -78,6 +78,7 @@ class Checklist extends CI_Controller {
                 log_message('error', 'Checklist::approval_confirm() - Erro ao obter o checklist com token(' . $input['token'] . '): ' . $this->db->db_debug);
             }
             $store = $this->Stores_model->get($checklist->id_store);
+            $client = $this->Clients_model->get($checklist->id_client);
             if (!$store) {
                 log_message('error', 'Checklist::approval_confirm() - Erro ao obter o a loja (' . $checklist->id_store . '): ' . $this->db->db_debug);
             }
@@ -118,6 +119,23 @@ class Checklist extends CI_Controller {
                 log_message('error', 'Checklist::approval_confirm() - Erro ao atualizar o status do checklist, token ('.$input['token'].'): '. $this->db->db_debug);
             }
 
+            // Send e-mail to Demian with checklist approved
+            $data_email = array('manager_name' => $store->manager_name,
+                'os' => $checklist->os,
+                'client' => $client->name,
+                'store' => $store->name);
+
+            // Attach
+            $attach[] = $checklist->file;
+            $receipts = $this->Receipts_model->where('id_checklist', $checklist->id)->get_all();
+            if (is_array($receipts)) {
+                foreach ($receipts as $value) {
+                    $attach[] = $value->file;
+                }
+            }
+            $this->load->library('sendemail');
+            $this->sendemail->send_checklist_fullconnection($data_email, $attach);
+            
             $data['os'] = $checklist->os;
             $this->load->view('approved', $data);
         } else {

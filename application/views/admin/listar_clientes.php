@@ -30,7 +30,7 @@
                             <thead>
                                 <tr>
                                     <th>Logomarca</th>
-                                    <th>ID</th>
+                                    <!--<th>ID</th>-->
                                     <th>Nome</th>
                                     <th>Total de Lojas</th>
                                     <th>Total de Equipamentos</th>
@@ -43,7 +43,7 @@
                                     foreach ($data as $value) {
                                         echo "<tr>";
                                         echo "<td><div align=\"center\"><img src=\"" . base_url($value[4]) . "\" height=\"40\"></div></td>";
-                                        echo "<td>" . $value[0] . "</td>";
+                                        //echo "<td>" . $value[0] . "</td>";
                                         echo "<td>" . $value[1] . "</td>";
                                         echo "<td>" . $value[2] . "</td>";
                                         echo "<td>" . $value[3] . "</td>";
@@ -60,7 +60,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Logomarca</th>
-                                    <th>ID</th>
+                                    <!--<th>ID</th>-->
                                     <th>Nome</th>
                                     <th>Total de Lojas</th>
                                     <th>Total de Equipamentos</th>

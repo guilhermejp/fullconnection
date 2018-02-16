@@ -21,14 +21,19 @@ class Sendemail {
         
     }
 
-    function send_checklist_fullconnection($attach="") {
+    function send_checklist_fullconnection($data, $attach="") {
 
-        $this->CI->email->to('amanda@agenciamplan.com.br', 'Amanda');
-        $this->CI->email->cc('demian@fullconnection.com.br', 'Demian');
+        //$this->CI->email->to('amanda@agenciamplan.com.br', 'Amanda');
+        $this->CI->email->to('demian@fullconnection.com.br', 'Demian');
         $this->CI->email->bcc('guilherme@gcoder.com.br', 'Guilherme');
         //$this->CI->email->to('guilherme@gcoder.com.br', 'Guilherme');
         $this->CI->email->subject('Full Connection - Checklist');
-        $this->CI->email->message("Novo checklist em anexo!");
+        $this->CI->email->message("Cliente:".$data['client']
+                . "<br>Loja:".$data['store']
+                . "<br>OS:".$data['os']
+                . "<br>Gerente:".$data['manager_name']
+                . "<br>Status: APROVADO"
+                . "<br>Checklist em anexo!");
         if (is_array($attach)) {
             foreach ($attach as $value) {
                 $this->CI->email->attach($value);
@@ -72,5 +77,5 @@ class Sendemail {
         }
 
     }
-
+    
 }

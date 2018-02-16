@@ -429,7 +429,7 @@ header("Content-type: text/html; charset=utf-8");
             qtdeQuadrosEletricos = 0;
             $.each(retorno.ep, function (i, item) {
                 qtdeQuadrosEletricos++;
-                load_quadro_eletrico(item);
+                html += load_quadro_eletrico(item);
             });
             $('#div-quadro-group').append(html);
             $('#qtde_quadros_eletricos').val(qtdeQuadrosEletricos);
@@ -443,8 +443,8 @@ header("Content-type: text/html; charset=utf-8");
             qtdeArCondicionado++;
             html = '<br>' +
                     '<div data-role="collapsible" id="set1" data-collapsed="true">' +
-                    '<h3>#A' + item.id + ' - ' + item.name + ' <small><i>clique para expandir/recolher</i></small></h3>' +
-                    '<input type="hidden" name="ar_desc[]" value="#A' + item.id + ' - ' + item.name + '">' +
+                    '<h3>' + item.name + ' <small><i>clique para expandir/recolher</i></small></h3>' +
+                    '<input type="hidden" name="ar_desc[]" value="' + item.name + '">' +
                     '<p>' +
                     '<div class="ui-grid-a">' +
                     '    <div class="ui-block-a" style="padding-right: 5px;">' +
@@ -518,18 +518,18 @@ header("Content-type: text/html; charset=utf-8");
                     '</label>' +
                     '<label>' +
                     '    <input type="checkbox" name="ar_check6[]" value="S">5.6. Verificar e limpar condensador<br>' +
-                    '    <i class="period">PERIODICIDADE SEMESTRAL</i>' +
+                    '    <i class="period">PERIODICIDADE ANUAL</i>' +
                     '</label>' +
                     '<label>' +
                     '    <input type="checkbox" name="ar_check7[]" value="S">5.7. Verificar e limpar serpentina<br>' +
-                    '    <i class="period">PERIODICIDADE SEMESTRAL</i>' +
+                    '    <i class="period">PERIODICIDADE ANUAL</i>' +
                     '</label>' +
                     '<label>' +
                     '    <input type="checkbox" name="ar_check8[]" value="S">5.8. Verificar vedação carenagem<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
                     '<label>' +
-                    '    <input type="checkbox" name="ar_check9[]" value="S">5.9. Verificar carga de gás<br>' +
+                    '    <input type="checkbox" name="ar_check9[]" value="S">5.9. Verificar nível de gás<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
                     '<label>' +
@@ -556,10 +556,10 @@ header("Content-type: text/html; charset=utf-8");
                     '    <input type="checkbox" name="ar_check15[]" value="S">5.15. Testar funcionamento dos controles remotos<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
-                    '<label>' +
+                    /*'<label>' +
                     '    <input type="checkbox" name="ar_check16[]" value="S">5.16. Verificar carga de gás refrigerante<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
-                    '</label>' +
+                    '</label>' +*/
                     '</p>' +
                     '</div>';
 
@@ -569,8 +569,8 @@ header("Content-type: text/html; charset=utf-8");
         function load_quadro_eletrico(item) {
             html = '<br>' +
                     '<div data-role="collapsible" id="set1" data-collapsed="true">' +
-                    '<h3>#Q' + item.id + ' - ' + item.name + ' <small><i>clique para expandir/recolher</i></small></h3>' +
-                    '<input type="hidden" name="qe_desc[]" value="#Q' + item.id + ' - ' + item.name + '">' +
+                    '<h3>' + item.name + ' <small><i>clique para expandir/recolher</i></small></h3>' +
+                    '<input type="hidden" name="qe_desc[]" value="' + item.name + '">' +
                     '<p>' +
                     '<div class="ui-grid-a">' +
                     '    <div class="ui-block-a" style="padding-right: 5px;">' +
@@ -600,29 +600,29 @@ header("Content-type: text/html; charset=utf-8");
                     '    <input type="checkbox" name="qe_check2[]" value="S">4.2. Realizar limpeza interna e externa<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
-                    '<label>' +
+                    /*'<label>' +
                     '    <input type="checkbox" name="qe_check3[]" value="S">4.3. Limpar painel frontal<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
-                    '</label>' +
+                    '</label>' +*/
                     '' +
                     '<label>' +
-                    '    <input type="checkbox" name="qe_check4[]" value="S">4.4. Verificar chaves/botoeiras<br>' +
+                    '    <input type="checkbox" name="qe_check4[]" value="S">4.3. Verificar chaves/botoeiras<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
                     '<label>' +
-                    '    <input type="checkbox" name="qe_check5[]" value="S">4.5. Verificar identificação dos cirtuitos<br>' +
+                    '    <input type="checkbox" name="qe_check5[]" value="S">4.4. Verificar identificação dos cirtuitos<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
                     '<label>' +
-                    '    <input type="checkbox" name="qe_check6[]" value="S">4.6. Verificar Superaquecimento de cabos<br>' +
+                    '    <input type="checkbox" name="qe_check6[]" value="S">4.5. Verificar Superaquecimento de cabos<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
                     '<label>' +
-                    '    <input type="checkbox" name="qe_check7[]" value="S">4.7. Reapertar parafusos de conexões elétricas<br>' +
+                    '    <input type="checkbox" name="qe_check7[]" value="S">4.6. Reapertar parafusos de conexões elétricas<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
                     '<label>' +
-                    '    <input type="checkbox" name="qe_check8[]" value="S">4.8. Verificar fiações, barramentos e sistema de aterramento<br>' +
+                    '    <input type="checkbox" name="qe_check8[]" value="S">4.7. Verificar fiações, barramentos e sistema de aterramento<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
                     '</p>' +

@@ -105,7 +105,7 @@ header("Content-type: text/html; charset=utf-8");
                     <br>
                     <div class="ui-grid-a">
                         <div>
-                            <a class="ui-btn ui-btn-icon-right ui-icon-carat-r submit" href="#">APROVAR</a>
+                                <a class="ui-btn ui-btn-icon-right ui-icon-carat-r submit" href="#">APROVAR</a>
                         </div>
                     </div><!-- /grid-a -->
                 </div>
@@ -146,7 +146,7 @@ header("Content-type: text/html; charset=utf-8");
                 $(this)[0].reset();
             });
             
-            $('.submit').click(function () {
+            $('#formulario').submit(function () {
                 if(TestaCPF($('#cpf').val())){
                     $('.carregando').show();
                     $('#formulario').submit();

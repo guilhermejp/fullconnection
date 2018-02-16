@@ -114,11 +114,11 @@
             </tr>
         </table>
     </center>
-    <h3 class="header">CIVIL</h3>
+    <!-- 1 --><h3 class="header">CIVIL</h3>
     <hr>
     <table class="w100 table_itens" cellspacing="0">
         <tr>
-            <td><i class="fa <?= @$civil_check1 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i> &nbsp; </td>
+            <td><i class="fa <?= @$civil_check1 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check" style="color: #000"></i> &nbsp; </td>
             <td> 1 - VERIFICAR E RECOMPOR NA COBERTURA, RUFOS, CONDUTORES, TIRANTES, FURAÇÕES, EXECUTANDO REFORÇO DA IMPERMEABILIZAÇÃO NESSES PONTOS.</td>
             <td class="period" align="right">SEMANAL</td>
         </tr>
@@ -159,7 +159,7 @@
         </tr>        
     </table>
     <br>
-    <h3 class="header">INSTALAÇÕES HIDRÁULICAS E PLUVIAIS</h3>
+    <!-- 2 --><h3 class="header">INSTALAÇÕES HIDRÁULICAS E PLUVIAIS</h3>
     <hr>
     <table class="w100 table_itens" cellspacing="0">
         <tr>
@@ -167,7 +167,7 @@
             <td>1- LIMPAR CISTERNA/CAIXA D'ÁGUA.</td>
             <td class="period" align="right">ANUAL</td>
         </tr>
-        <tr>
+        <!--<tr>
             <td><i class="fa <?= @$hid_check2 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
             <td>2 - VERIFICAR ESTADO GERAL DOS RESERVATÓRIOS QUANTO A LIMPEZA E ASPECTO DA ÁGUA, VEDAÇÃO E FIXAÇÃO DAS TAMPAS, BÓIAS E VAZAMENTOS.</td>
             <td class="period" align="right">ANUAL</td>
@@ -176,36 +176,36 @@
             <td><i class="fa <?= @$hid_check3 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
             <td>3 - VERIFICAR CONDIÇÕES DE ABRIGO EXECUTANDO PEQUENOS REPAROS</td>
             <td class="period" align="right">MENSAL</td>
-        </tr>
+        </tr>-->
         <tr>
             <td><i class="fa <?= @$hid_check4 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-            <td>4 - VERIFICAR ESTADO GERAL DE RALOS, CAIXAS DE GORDURA E TUBULAÇÕES EM GERAL DOS SANITÁRIOS E COPA EFETUANDO OS REPAROS NECESSÁRIOS.</td>
+            <td>2 - VERIFICAR ESTADO GERAL DE RALOS, CAIXAS DE GORDURA E TUBULAÇÕES EM GERAL DOS SANITÁRIOS E COPA EFETUANDO OS REPAROS NECESSÁRIOS.</td>
             <td class="period" align="right">MENSAL</td>
         </tr>
         <tr>
             <td><i class="fa <?= @$hid_check5 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-            <td>5- VERIFICAR DISPOSITIVOS DE ACIONAMENTO.</td>
+            <td>3- VERIFICAR DISPOSITIVOS DE ACIONAMENTO.</td>
             <td class="period" align="right">MENSAL</td>
         </tr>
         <tr>
             <td><i class="fa <?= @$hid_check6 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-            <td>6 - SUBSTITUIÇÃO DE METAIS SANITÁRIOS DEFEITUOSOS (SIFÕES, TORNEIRAS, VÁLVULAS, GRELHAS DE RALO, SABONETEIRAS, ESPELHOS, ASSENTOS, ENGATES, ETC.</td>
+            <td>4 - VERIFICAR DE METAIS SANITÁRIOS DEFEITUOSOS (SIFÕES, TORNEIRAS, VÁLVULAS, GRELHAS DE RALO, SABONETEIRAS, ESPELHOS, ASSENTOS, ENGATES, ETC.</td>
             <td class="period" align="right">MENSAL</td>
         </tr>
         <tr>
             <td><i class="fa <?= @$hid_check7 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-            <td>7 - VERIFICAÇÃO DE VAZAMENTOS.</td>
+            <td>5 - VERIFICAÇÃO DE VAZAMENTOS.</td>
             <td class="period" align="right">MENSAL</td>
         </tr>
         <tr>
             <td><i class="fa <?= @$hid_check8 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-            <td>8 - VERIFICAR FUNCIONAMENTO DAS TORNEIRAS E VAZAMENTOS DOS BEBEDOUROS.</td>
+            <td>6 - VERIFICAR FUNCIONAMENTO DAS TORNEIRAS E VAZAMENTOS DOS BEBEDOUROS.</td>
             <td class="period" align="right">MENSAL</td>
         </tr>        
     </table>
 
     <br>
-    <h3 class="header">INSTALAÇÕES ELÉTRICAS</h3>
+    <!-- 3 --><h3 class="header">INSTALAÇÕES ELÉTRICAS</h3>
     <hr>
     <table class="w100 table_itens" cellspacing="0">
         <tr>
@@ -223,32 +223,32 @@
             <td>3 - VERIFICAR ESTADO GERAL DE TOMADAS, INTERRUPTORES, TELEFONE E CABO DE REDE, CORRIGINDO EVENTUAIS PROBLEMAS.</td>
             <td class="period" align="right">MENSAL</td>
         </tr>
-        <tr>
+        <!--<tr>
             <td><i class="fa <?= @$elet_check4 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
             <td>4 - VERIFICAR E CORRIGIR PROBLEMAS COM VENTILADORES E CORTINAS DE AR.</td>
             <td class="period" align="right">MENSAL</td>
-        </tr>
+        </tr>-->
         <tr>
             <td><i class="fa <?= @$elet_check5 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-            <td>5 - VERIFICAR ESTADO GERAL DE QUADROS DE DISTRIBUIÇÃO E DE MEDIÇÃO, SUBSTITUINDO ELEMENTOS DEFEITUOSOS, VERIFICANDO FIXAÇÕES, CONEXÕES, ISOLAÇÕES, ATERRAMENTO.</td>
-            <td class="period" align="right">BIMESTRAL</td>
+            <td>4 - VERIFICAR ESTADO GERAL DE QUADROS DE DISTRIBUIÇÃO E DE MEDIÇÃO, SUBSTITUINDO ELEMENTOS DEFEITUOSOS, VERIFICANDO FIXAÇÕES, CONEXÕES, ISOLAÇÕES, ATERRAMENTO.</td>
+            <td class="period" align="right">MENSAL</td>
         </tr>
-        <tr>
+        <!--<tr>
             <td><i class="fa <?= @$elet_check6 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
             <td>6 - EFETUAR LIMPEZA GERAL, LUBRIFICAR PARTES MÓVEIS E ELIMINAR PONTO DE FERRUGENS E CORROSÃO EM QUADROS ELÉTRICOS.</td>
             <td class="period" align="right">BIMESTRAL</td>
-        </tr>
+        </tr>-->
         <tr>
             <td><i class="fa <?= @$elet_check7 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-            <td>7 - RELACIONAR CIRCUITOS QUE ESTEJAM COM SUPERAQUEIMENTO, INDICANDO CAPACIDADE DO DISJUNTOR, CORRENTE MEDIDA A PLENA CARGA E BITOLA DO CONDUTOR E ORÇAR A CORREÇÃO.</td>
-            <td class="period" align="right">BIMESTRAL</td>
-        </tr>
-        <tr>
-            <td><i class="fa <?= @$elet_check8 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-            <td>8 - VERIFICAR FUNCIONAMENTO, SUBSTITUIR EVENTUAIS PEÇAS DANIFICADAS (LÂMPADAS, BATERIAS, ETC) EM LUMINÁRIAS DE EMERGÊNCIA.</td>
+            <td>5 - RELACIONAR CIRCUITOS QUE ESTEJAM COM SUPERAQUEIMENTO, INDICANDO CAPACIDADE DO DISJUNTOR, CORRENTE MEDIDA A PLENA CARGA E BITOLA DO CONDUTOR E ORÇAR A CORREÇÃO.</td>
             <td class="period" align="right">MENSAL</td>
         </tr>
         <tr>
+            <td><i class="fa <?= @$elet_check8 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
+            <td>6 - VERIFICAR FUNCIONAMENTO, SUBSTITUIR EVENTUAIS PEÇAS DANIFICADAS (LÂMPADAS, BATERIAS, ETC) EM LUMINÁRIAS DE EMERGÊNCIA.</td>
+            <td class="period" align="right">MENSAL</td>
+        </tr>
+        <!--<tr>
             <td><i class="fa <?= @$elet_check9 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
             <td>9 - VERIFICAR REATORES E STARTERS DEFEITUOSOS.</td>
             <td class="period" align="right">MENSAL</td>
@@ -257,11 +257,11 @@
             <td><i class="fa <?= @$elet_check9 == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
             <td>10 - VERIFICAR A BORRACHA DE VEDAÇÃO, GRADES, BANDEJAS INTERNAS, VAZAMENTO DE GÁS DAS GELADEIRAS E CONSTATANDO-SE QUALQUER ANOMALIA, ACIONAR EMPRESA AUTORIZADA.</td>
             <td class="period" align="right">MENSAL</td>
-        </tr>
+        </tr>-->
     </table>
     <br>
     <br>
-    <h3 class="header">QUADROS ELÉTRICOS</h3>
+    <!-- 4 --><h3 class="header">QUADROS ELÉTRICOS</h3>
     <hr>
 
     <?php
@@ -298,34 +298,34 @@
                 <td>2 - REALIZAR LIMPEZA INTERNA E EXTERNA.</td>
                 <td class="period" align="right">MENSAL</td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td><i class="fa <?= @$qe_check3[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
                 <td>3 - LIMPAR PAINEL FRONTAL.</td>
                 <td class="period" align="right">MENSAL</td>
-            </tr>
+            </tr>-->
             <tr>
                 <td><i class="fa <?= @$qe_check4[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-                <td>4 - VERIFICAR CHAVES/BOTOEIRAS.</td>
+                <td>3 - VERIFICAR CHAVES/BOTOEIRAS.</td>
                 <td class="period" align="right">MENSAL</td>
             </tr>
             <tr>
                 <td><i class="fa <?= @$qe_check5[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-                <td>5 - VERIFICAR IDENTIFICAÇÃO DOS CIRCUITOS.</td>
+                <td>4 - VERIFICAR IDENTIFICAÇÃO DOS CIRCUITOS.</td>
                 <td class="period" align="right">MENSAL</td>
             </tr>
             <tr>
                 <td><i class="fa <?= @$qe_check6[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-                <td>6 - VERIFICAR SUPERAQUECIMENTO DE CABOS.</td>
+                <td>5 - VERIFICAR SUPERAQUECIMENTO DE CABOS.</td>
                 <td class="period" align="right">MENSAL</td>
             </tr>
             <tr>
                 <td><i class="fa <?= @$qe_check7[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-                <td>7 - REAPERTAR PARAFUSOS DE CONEXÕES ELÉTRICAS.</td>
+                <td>6 - REAPERTAR PARAFUSOS DE CONEXÕES ELÉTRICAS.</td>
                 <td class="period" align="right">MENSAL</td>
             </tr>
             <tr>
                 <td><i class="fa <?= @$qe_check8[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-                <td>8 - VERIFICAR FIAÇÕES, BARRAMENTOS E SISTEMA DE ATERRAMENTO.</td>
+                <td>7 - VERIFICAR FIAÇÕES, BARRAMENTOS E SISTEMA DE ATERRAMENTO.</td>
                 <td class="period" align="right">MENSAL</td>
             </tr>
         </table>
@@ -340,7 +340,7 @@
     ?>
 
     <br>
-    <h3 class="header">AR CONDICIONADO</h3>
+    <!-- 5 --><h3 class="header">AR CONDICIONADO</h3>
     <hr>
 
     <?php
@@ -418,12 +418,12 @@
             <tr>
                 <td><i class="fa <?= @$ar_check6[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
                 <td>6 - VERIFICAR E LIMPAR CONDENSADOR.</td>
-                <td class="period" align="right">MENSAL</td>
+                <td class="period" align="right">ANUAL</td>
             </tr>
             <tr>
                 <td><i class="fa <?= @$ar_check7[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
                 <td>7 - VERIFICAR E LIMPAR SERPENTINA.</td>
-                <td class="period" align="right">MENSAL</td>
+                <td class="period" align="right">ANUAL</td>
             </tr>
             <tr>
                 <td><i class="fa <?= @$ar_check8[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
@@ -432,7 +432,7 @@
             </tr>
             <tr>
                 <td><i class="fa <?= @$ar_check9[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
-                <td>9 - VERIFICAR CARGA DE GÁS.</td>
+                <td>9 - VERIFICAR NÍVEL DE GÁS.</td>
                 <td class="period" align="right">MENSAL</td>
             </tr>
             <tr>
@@ -465,11 +465,11 @@
                 <td>15 - TESTES FUNC. CONTROLES REMOTO.</td>
                 <td class="period" align="right">MENSAL</td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td><i class="fa <?= @$ar_check16[$i] == "S" ? "fa-check-square-o" : "fa-square-o" ?> check"></i></td>
                 <td>16 - VERIFICAR CARGA DE GÁS REFRIGERANTE.</td>
                 <td class="period" align="right">MENSAL</td>
-            </tr>
+            </tr>-->
         </table>
 
         <?php
