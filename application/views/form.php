@@ -556,6 +556,16 @@ header("Content-type: text/html; charset=utf-8");
                     '    <input type="checkbox" name="ar_check15[]" value="S">5.15. Testar funcionamento dos controles remotos<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check16[]" value="S">5.16. Tensão no Motor<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '        Valor Tensão<input type="text" name="ar_16">'+
+                    '<label>' +
+                    '    <input type="checkbox" name="ar_check17[]" value="S">5.17. Corrente no Motor<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '        Valor Corrente<input type="text" name="ar_17">'+
                     /*'<label>' +
                     '    <input type="checkbox" name="ar_check16[]" value="S">5.16. Verificar carga de gás refrigerante<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
@@ -625,6 +635,36 @@ header("Content-type: text/html; charset=utf-8");
                     '    <input type="checkbox" name="qe_check8[]" value="S">4.7. Verificar fiações, barramentos e sistema de aterramento<br>' +
                     '    <i class="period">PERIODICIDADE MENSAL</i>' +
                     '</label>' +
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check9[]" value="S">4.8. Medição de tensão<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<div class="ui-grid-b">'+
+                    '    <div class="ui-block-a" style="padding-right: 5px;">'+
+                    '        RS<input type="text" name="qe_9_rs">'+
+                    '    </div>'+
+                    '    <div class="ui-block-b" style="padding-left: 5px;">'+
+                    '        ST<input type="text" name="qe_9_st">'+
+                    '    </div>'+
+                    '    <div class="ui-block-c" style="padding-left: 5px;">'+
+                    '        RT<input type="text" name="qe_9_rt">'+
+                    '    </div>'+
+                    '</div>'+
+                    '<label>' +
+                    '    <input type="checkbox" name="qe_check10[]" value="S">4.9. Medição de corrente<br>' +
+                    '    <i class="period">PERIODICIDADE MENSAL</i>' +
+                    '</label>' +
+                    '<div class="ui-grid-b">'+
+                    '    <div class="ui-block-a" style="padding-right: 5px;">'+
+                    '        R<input type="text" name="qe_10_r">'+
+                    '    </div>'+
+                    '    <div class="ui-block-b" style="padding-left: 5px;">'+
+                    '        S<input type="text" name="qe_10_s">'+
+                    '    </div>'+
+                    '    <div class="ui-block-c" style="padding-left: 5px;">'+
+                    '        T<input type="text" name="qe_10_t">'+
+                    '    </div>'+
+                    '</div>'+
                     '</p>' +
                     '</div>';
             return html;

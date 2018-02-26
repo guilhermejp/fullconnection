@@ -31,7 +31,7 @@
     </label>
     <label>
         <input type="checkbox" name="elet_check8" value="S">3.6. Verificar funcionamento, substituir eventuais peças danificadas (lâmpadas, baterias, etc) em luminárias de emergência<br>
-        <i class="period">PERIODICIDADE ANUAL</i>
+        <i class="period">PERIODICIDADE MENSAL</i>
     </label>
     <!--<label>
         <input type="checkbox" name="elet_check9" value="S">3.9. Verificar reatores e starters defeituosos<br>

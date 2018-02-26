@@ -31,7 +31,6 @@
                         <table id="datatable_stores" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Cliente</th>
                                     <th>Loja</th>
                                     <th>Gerente</th>
@@ -44,7 +43,6 @@
                                 if (is_array($data)) {
                                     foreach ($data as $value) {
                                         echo "<tr>";
-                                        echo "<td>" . $value[0] . "</td>";
                                         echo "<td>" . $value[1] . "</td>";
                                         echo "<td>" . $value[2] . "</td>";
                                         echo "<td>" . $value[3] . "</td>";
@@ -61,7 +59,6 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Cliente</th>
                                     <th>Loja</th>
                                     <th>Gerente</th>

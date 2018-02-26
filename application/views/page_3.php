@@ -1,6 +1,6 @@
 <div data-role="content" data-theme="a">
     <div class="header"><h3>INSTALAÇÕES HIDRÁULICAS E PLUVIAIS</h3></div>
-    <label>
+    <!--<label>
         <input type="checkbox" name="hid_check1" value="S">2.1. Limpar cisterna/caixa d'água<br>
         <i class="period">PERIODICIDADE ANUAL</i>
     </label>
@@ -14,23 +14,23 @@
     </label>-->
 
     <label>
-        <input type="checkbox" name="hid_check4" value="S">2.2. Verificar estado geral de ralos, caixas de gordura e tubulações em geral dos sanitários e copa efetuando os reparos necessários<br>
+        <input type="checkbox" name="hid_check4" value="S">2.1. Verificar estado geral de ralos, caixas de gordura e tubulações em geral dos sanitários e copa efetuando os reparos necessários<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
     <label>
-        <input type="checkbox" name="hid_check5" value="S">2.3. Verificar dispositivos de acionamento<br>
+        <input type="checkbox" name="hid_check5" value="S">2.2. Verificar dispositivos de acionamento dos vasos sanitários<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
     <label>
-        <input type="checkbox" name="hid_check6" value="S">2.4. Verificar metais sanitários defeituosos (sifões, torneiras, válvulas, grelhas de ralo, saboneteiras, espelhos, assentos, engates, etc<br>
+        <input type="checkbox" name="hid_check6" value="S">2.3. Verificar metais e acessórios defeituosos (sifões, torneiras, válvulas, grelhas de ralo, saboneteiras, espelhos, assentos, engates, etc)<br>
         <i class="period">PERIODICIDADE MESAL</i>
     </label>
     <label>
-        <input type="checkbox" name="hid_check7" value="S">2.5. Verificação de vazamentos<br>
+        <input type="checkbox" name="hid_check7" value="S">2.4. Verificação de vazamentos<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
     <label>
-        <input type="checkbox" name="hid_check8" value="S">2.6. Verificar funcionamento das torneiras e vazamentos dos bebedouros<br>
+        <input type="checkbox" name="hid_check8" value="S">2.5. Verificar funcionamento das torneiras e vazamentos dos bebedouros<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
 
