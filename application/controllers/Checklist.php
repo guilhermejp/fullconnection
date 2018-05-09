@@ -32,7 +32,7 @@ class Checklist extends CI_Controller {
                 $store = $this->Stores_model->get($value->id_store);
 
                 $data['data'][] = array($value->id,
-                    date('d/m/Y H:i:s', strtotime($value->create)),
+                    "<span style=\"display:none\">".$value->create."</span>".date('d/m/Y', strtotime($value->create)),
                     $client->name,
                     $store->name,
                     $value->os,

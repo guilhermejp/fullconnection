@@ -33,7 +33,8 @@ class Uploads extends CI_Controller {
                     $_FILES['comp']['error'] = $_FILES['comprovante']['error'][$i];
                     $_FILES['comp']['size'] = $_FILES['comprovante']['size'][$i];
                     $config['upload_path'] = "assets/teste/";
-                    $config['allowed_types'] = 'jpg|png|gif|bmp';
+                    /*$config['allowed_types'] = 'jpg|png|gif|bmp';*/
+                    $config['allowed_types'] = '*';
                     $config['max_size'] = 0;
                     //$config['encrypt_name'] = TRUE;
                     $config['file_name'] = date('d-m-Y H-m-s ').$_FILES['comp']['name'];

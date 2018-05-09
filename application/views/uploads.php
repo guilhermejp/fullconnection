@@ -39,11 +39,11 @@ header("Content-type: text/html; charset=utf-8");
                 include("header.php");
                 ?>
                 <div data-role="content" data-theme="a">
-                    <div class="header"><h3>TESTE DE UPLOAD DE COMPROVANTES</h3></div>
+                    <div class="header"><h3>TESTE DE UPLOAD DE COMPROVANTES VERSÃO 2</h3></div>
                     <br>
                     <div style="padding-left: 5px;" class="div_comprovantes">
                         <label for="textarea">Comprovantes</label>
-                        <input type="file" name="comprovante[]" class="comprovante">
+                        <input type="file" name="comprovante[]" class="comprovante" accept="image/*" capture="camera">
                         <a class="ui-btn add-comprovante" href="#">Adicionar Comprovante</a>
                     </div>
                     <br>
@@ -96,7 +96,7 @@ header("Content-type: text/html; charset=utf-8");
             });
 
             $('.add-comprovante').click(function () {
-                var html = '<input type="file" name="comprovante[]" class="comprovante">';
+                var html = '<input type="file" name="comprovante[]" class="comprovante"  accept="image/*" capture="camera">';
                 $('.add-comprovante').before(html);
                 $('.div_comprovantes').trigger('create');
                 /*$('.comprovante').unbind('change');
