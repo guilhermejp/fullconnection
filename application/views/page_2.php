@@ -1,35 +1,35 @@
 <div data-role="content" data-theme="a">
     <div class="header"><h3>CIVIL</h3></div>
     <label>
-        <input type="checkbox" name="civil_check1" value="S">1.1. Verificar e recompor na cobertura, rufos, condutores, tirantes, furacões, executando reforço da impermeabilização nesses pontos<br>
+        <input type="checkbox" name="civil_check1" value="S" <?=(@$session['civil_check1'] == "S")?"checked=\"checked\"":"";?>>1.1. Verificar e recompor na cobertura, rufos, condutores, tirantes, furacões, executando reforço da impermeabilização nesses pontos<br>
         <i class="period">PERIODICIDADE SEMESTRAL</i>
     </label>
     <label>
-        <input type="checkbox" name="civil_check2" value="S">1.2. Verificar estado geral de portões e grades<br>
+        <input type="checkbox" name="civil_check2" value="S" <?=(@$session['civil_check2'] == "S")?"checked=\"checked\"":"";?>>1.2. Verificar estado geral de portões e grades<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
     <label>
-        <input type="checkbox" name="civil_check3" value="S">1.3. Avaliação geral das paredes (quebras, desgaste, pinturas)<br>
+        <input type="checkbox" name="civil_check3" value="S" <?=(@$session['civil_check3'] == "S")?"checked=\"checked\"":"";?>>1.3. Avaliação geral das paredes (quebras, desgaste, pinturas)<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
     <label>
-        <input type="checkbox" name="civil_check4" value="S">1.4. Verificar estado geral de escadas, corrimões e calçamento efetuando pq reparos (até 5m²)<br>
+        <input type="checkbox" name="civil_check4" value="S" <?=(@$session['civil_check4'] == "S")?"checked=\"checked\"":"";?>>1.4. Verificar estado geral de escadas, corrimões e calçamento efetuando pq reparos (até 5m²)<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
     <label>
-        <input type="checkbox" name="civil_check5" value="S">1.5. Reparos com calafetação de junções em calhas, rufos e condutores<br>
+        <input type="checkbox" name="civil_check5" value="S" <?=(@$session['civil_check5'] == "S")?"checked=\"checked\"":"";?>>1.5. Reparos com calafetação de junções em calhas, rufos e condutores<br>
         <i class="period">PERIODICIDADE SEMESTRAL</i>
     </label>
     <label>
-        <input type="checkbox" name="civil_check6" value="S">1.6. Verificar estado geral de conservação de calçadas, pátios, acessos, alambrado<br>
+        <input type="checkbox" name="civil_check6" value="S" <?=(@$session['civil_check6'] == "S")?"checked=\"checked\"":"";?>>1.6. Verificar estado geral de conservação de calçadas, pátios, acessos, alambrado<br>
         <i class="period">PERIODICIDADE SEMESTRAL</i>
     </label>
     <label>
-        <input type="checkbox" name="civil_check7" value="S">1.7. Verificar estado de paredes internas, externas e forros efetuando pequenos reparos/pintura (até 20m²)<br>
+        <input type="checkbox" name="civil_check7" value="S" <?=(@$session['civil_check7'] == "S")?"checked=\"checked\"":"";?>>1.7. Verificar estado de paredes internas, externas e forros efetuando pequenos reparos/pintura (até 20m²)<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
     <label>
-        <input type="checkbox" name="civil_check8" value="S">1.8. Verificar estado de pisos, carpetes e azulejos efetuando pequenos reparos (até 5m²)<br>
+        <input type="checkbox" name="civil_check8" value="S" <?=(@$session['civil_check8'] == "S")?"checked=\"checked\"":"";?>>1.8. Verificar estado de pisos, carpetes e azulejos efetuando pequenos reparos (até 5m²)<br>
         <i class="period">PERIODICIDADE MENSAL</i>
     </label>
 

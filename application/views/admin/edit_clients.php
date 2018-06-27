@@ -42,6 +42,12 @@
                                 <input type="file" id="logo" name="logo">
                             </div>
                             <img src="<?= base_url(@$logo); ?>" height="100px;" alt="">
+                            <br>
+                            <div class="form-group">
+                                <input type="checkbox" id="temp_only_ar" name="temp_only_ar" value="1" <?=(@$temp_only_ar == "1")? "checked=checked":""; ?>>
+                                &nbsp; &nbsp;
+                                <label for="temp_only_ar">Apenas checklist de Ar Condicionado?</label>
+                            </div>
                         </div>
                         <!-- /.box-body -->
 

@@ -11,7 +11,7 @@ function ajax(url, form, callback){
             return result;
         },
         error: function(result){
-            eval(callback+"(result)");
+            eval(callback+"_erro(result)");
             return result;
         }
     });

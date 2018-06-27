@@ -68,10 +68,12 @@
     <h1>
         <center>
             <a class="numberCircle ok" href="#page_1">ID</a>
+            <?php if($client->temp_only_ar != "1"){ ?>
             <a class="numberCircle ok" href="#page_2">1</a>
             <a class="numberCircle ok" href="#page_3">2</a>
             <a class="numberCircle ok" href="#page_4">3</a>
             <a class="numberCircle ok" href="#page_5">4</a>
+            <?php } ?>
             <a class="numberCircle ok" href="#page_6">5</a>
             <a class="numberCircle ok" href="#page_7">6</a>
             <a class="numberCircle ok" href="#page_8">7</a>

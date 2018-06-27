@@ -21,6 +21,10 @@ header("Content-type: text/html; charset=utf-8");
         <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
         <script src="<?= base_url('assets/js/jquery-1.11.1.min.js') ?>"></script>
         <script src="<?= base_url('assets/js/jquery.mobile-1.4.5.min.js') ?>"></script>
+        <script src="<?= base_url('assets/js/cookies.js') ?>"></script>
+        <script>
+            deleteAllCookies();
+        </script>
     </head>
     <?php
     /*

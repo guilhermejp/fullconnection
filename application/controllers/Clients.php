@@ -97,6 +97,11 @@ class Clients extends CI_Controller {
             $data = $input;
             $data['message'] = "";
 
+            // Check if exists fc_temp_logo_ar
+            if(!isset($input['temp_only_ar'])){
+                $input['temp_only_ar'] = 0;
+            }
+
             // Check if exists image to upload
             if ($image_detail = $this->upload_file('logo')) {
                 if (is_array($image_detail)) {

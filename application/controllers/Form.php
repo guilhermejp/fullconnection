@@ -26,6 +26,7 @@ class Form extends CI_Controller {
      */
     public function __construct() {
         parent::__construct();
+        $this->load->library('session');
         $this->load->model('Checklists_model');
         $this->load->model('Clients_model');
         $this->load->model('Stores_model');
@@ -35,12 +36,51 @@ class Form extends CI_Controller {
     }
 
     public function index() {
-        
+        // Remove todas as sessions
+        $data['session'] = $this->session->userdata;
+        if (@$data['session']['cliente'] != "" && @$data['session']['cidade'] != "") {
+            redirect('/inicial');
+        }
         $clients = $this->Clients_model->get_all();
-        if(!is_object($clients)){
+        if (!is_object($clients)) {
             log_message('debug', 'Form::index() - Nenhum cliente retornado');
         }
         $data['clients'] = $clients;
+
+        $this->load->view('inicial', $data);
+    }
+
+    public function inicial($novo=false) {
+        if($novo=="new"){
+            $this->session->unset_userdata('cliente'); 
+            $this->session->unset_userdata('cidade'); 
+            redirect("/");
+        }
+        
+        // Recuperar campos gravados em sessão
+        $data['session'] = $this->session->userdata;
+        $data['mensagem'] = "";
+        if ($this->input->post()) {
+            $input = $this->input->post();
+        } elseif (@$data['session']['cliente'] != "" && @$data['session']['cidade'] != "") {
+            $data['mensagem'] = "Ops, houve um erro com seu formulário, recuperamos os dados para você!";
+            $input = $data['session'];
+        } else {
+            $this->session->unset_userdata('cliente'); 
+            $this->session->unset_userdata('cidade'); 
+            redirect("/");
+        }
+
+        $data['facilities'] = $this->load_facilities($input);
+        $this->session->set_userdata('cliente', $input['cliente']);
+        $data['client'] = $this->Clients_model->where('id', $input['cliente'])->get();
+        $this->session->set_userdata('cidade', $input['cidade']);
+        $data['store'] = $this->Stores_model->where('id', $input['cidade'])->get();
+
+        $clients = $this->Clients_model->get_all();
+        if (!is_object($clients)) {
+            log_message('debug', 'Form::index() - Nenhum cliente retornado');
+        }
 
         $this->load->view('form', $data);
     }
@@ -54,28 +94,22 @@ class Form extends CI_Controller {
                 foreach ($stores as $value) {
                     $data[] = array($value->id, $value->name);
                 }
-            }else{
-                log_message('debug', 'Form::load_stores() - Sem lojas para apresentar do cliente: '.$input['cliente']);
+            } else {
+                log_message('debug', 'Form::load_stores() - Sem lojas para apresentar do cliente: ' . $input['cliente']);
             }
-        }else{
+        } else {
             log_message('debug', 'Form::load_stores() - Chamada não foi contém POST');
         }
-            
+
         echo json_encode($data);
     }
 
-    public function load_facilities() {
-        $data = "";
-        if ($this->input->post()) {
-            $input = $this->input->post();
-            $air_cond = $this->Air_conditioning_model->where(array('id_client' => $input['cliente'], 'id_store' => $input['cidade']))->get_all();
-            $panel = $this->Eletrical_panel_model->where(array('id_client' => $input['cliente'], 'id_store' => $input['cidade']))->get_all();
-            $data['ac'] = $air_cond;
-            $data['ep'] = $panel;
-        }else{
-            log_message('debug', 'Form::load_facilities() - Chamada não foi contém POST');
-        }
-        echo json_encode($data);
+    public function load_facilities($input) {
+        $air_cond = $this->Air_conditioning_model->where(array('id_client' => $input['cliente'], 'id_store' => $input['cidade']))->get_all();
+        $panel = $this->Eletrical_panel_model->where(array('id_client' => $input['cliente'], 'id_store' => $input['cidade']))->get_all();
+        $data['ac'] = $air_cond;
+        $data['ep'] = $panel;
+        return json_encode($data);
     }
 
     public function checklist() {
@@ -88,14 +122,14 @@ class Form extends CI_Controller {
             $input['os'] = ( $input['os'] == "" ? "OS" : $input['os']);
 
             $client = $this->Clients_model->get($input['cliente']);
-            if(!$client){
-                log_message('error', 'Form::checklist() - Erro ao obter o cliente ('.$input['cliente'].'): '.$this->db->db_debug);
+            if (!$client) {
+                log_message('error', 'Form::checklist() - Erro ao obter o cliente (' . $input['cliente'] . '): ' . $this->db->db_debug);
             }
             $input['cliente'] = $client->name;
             $input['logo'] = $client->logo;
             $store = $this->Stores_model->get($input['cidade']);
-            if(!$store){
-                log_message('error', 'Form::checklist() - Erro ao obter a loja ('.$input['cidade'].'): '.$this->db->db_debug);
+            if (!$store) {
+                log_message('error', 'Form::checklist() - Erro ao obter a loja (' . $input['cidade'] . '): ' . $this->db->db_debug);
             }
             $input['cidade'] = $store->name;
 
@@ -162,10 +196,10 @@ class Form extends CI_Controller {
                     if ($this->upload->do_upload('comp')) {
                         $image_details = $this->upload->data();
                         $attach[] = $config['upload_path'] . $image_details['file_name'];
-                    }else{
-                        log_message('debug', 'Form::checklist() - Erro ao efetuar o upload: '.$this->upload->display_errors());
+                    } else {
+                        log_message('debug', 'Form::checklist() - Erro ao efetuar o upload: ' . $this->upload->display_errors());
                     }
-                }else{
+                } else {
                     log_message('debug', 'Form::checklist() - Arquivo para upload está vazio');
                 }
             }
@@ -181,10 +215,15 @@ class Form extends CI_Controller {
 
         $this->load->library('pdfgenerator');
 
-        $html = $this->load->view('checklist', $input, true);
+        if($client->temp_only_ar == "1"){ 
+            $html = $this->load->view('checklist_only_ac', $input, true);
+        }else{
+            $html = $this->load->view('checklist', $input, true);
+        }
+
         $filename = 'report_' . time();
         $pdf = $this->pdfgenerator->generate($html, $filename, $tela, 'A4', 'portrait');
-        if(!$pdf){
+        if (!$pdf) {
             log_message('debug', 'Form::checklist() - Erro ao gerar o PDF (pdfgenerator->generate)');
         }
 
@@ -215,14 +254,14 @@ class Form extends CI_Controller {
             'file' => $arq_saida,
             'token' => $token);
         $checklist = $this->Checklists_model->insert($insert);
-        if(!$checklist){
-            log_message('error', 'Form::checklist() - Erro ao inserir checklist na base: '.$this->db->db_debug);
+        if (!$checklist) {
+            log_message('error', 'Form::checklist() - Erro ao inserir checklist na base: ' . $this->db->db_debug);
         }
 
         foreach ($attach as $value) {
             if (substr($value, -3) != "pdf") {
-                if(!$this->Receipts_model->insert(array('id_checklist' => $checklist, 'file' => $value))){
-                    log_message('error', 'Form::checklist() - Erro ao inserir comprovantes na base: '.$this->db->db_debug);
+                if (!$this->Receipts_model->insert(array('id_checklist' => $checklist, 'file' => $value))) {
+                    log_message('error', 'Form::checklist() - Erro ao inserir comprovantes na base: ' . $this->db->db_debug);
                 }
             }
         }
@@ -235,23 +274,28 @@ class Form extends CI_Controller {
             'token' => $token);
 
         $this->sendemail->send_checklist_manager($attach, $data_email);
-
         //$this->load->view('email/manager',$data_email); return true;
+
+        $this->session->sess_destroy();
 
         redirect(base_url('concluido'), 'refresh');
     }
 
-    public function checklist_view() {
+    public function checklist_view($type="") {
         if ($this->input->post()) {
             $input = $this->input->post();
         } else {
             $input['data'] = "99/99/9999";
         }
-
-        $html = $this->load->view('checklist', $input);
+        if($type == "only"){
+            $html = $this->load->view('checklist_only_ac', $input);
+        }else{
+            $html = $this->load->view('checklist', $input);
+        }
     }
 
     public function concluido() {
+        $this->session->sess_destroy();
         $html = $this->load->view('concluido');
     }
 
@@ -306,7 +350,7 @@ class Form extends CI_Controller {
 
         if (!is_dir($caminho_arquivo)) {
             mkdir($caminho_arquivo, 0750, true);
-            log_message('debug', 'Form::upload() - Criado diretório:'.$caminho_arquivo);
+            log_message('debug', 'Form::upload() - Criado diretório:' . $caminho_arquivo);
         }
 
         if (@$_FILES['comprovante']['size'] > 0) {
@@ -326,12 +370,46 @@ class Form extends CI_Controller {
                 echo json_encode(array("imagem" => $config['upload_path'] . $image_details['file_name'],
                     "retorno" => true));
                 return true;
-            }else{
-                log_message('error', 'Form::upload() - Erro ao efetuar upload: '.$this->upload->display_errors());
+            } else {
+                log_message('error', 'Form::upload() - Erro ao efetuar upload: ' . $this->upload->display_errors());
             }
         }
         echo json_encode(array("retorno" => false, "tamanho" => $_FILES['comprovante']['size'], "error" => $this->upload->display_errors()));
         return false;
+    }
+
+    public function save_field() {
+        if (is_array($this->input->post())) {
+            //print_r($this->input->post());
+            foreach ($this->input->post() as $key => $value) {
+                if ($key == "sample_checkbox") {
+                    $value = explode(":", $value);
+                    $key = $value[0];
+                    $value = $value[1];
+                }
+                $this->session->unset_userdata($key);
+                $this->session->set_userdata($key, $value);
+                //echo $key."=".$value;
+            }
+            echo json_encode(array("retorno" => true));
+        } else {
+            echo json_encode(array("retorno" => false));
+        }
+    }
+
+    public function empty_fields() {
+        $this->session->sess_destroy();
+        return true;
+    }
+    
+    public function empty_cliente() {
+        $this->session->sess_destroy();
+        return true;
+    }
+    
+    public function check_connection() {
+        echo json_encode(array("retorno" => true));
+        return true;
     }
 
 }

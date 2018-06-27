@@ -53,6 +53,8 @@ $route['default_controller'] = 'form';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['inicial'] = 'form/inicial';
+$route['inicial/(:any)'] = 'form/inicial/$1';
 $route['checklist'] = 'form/checklist';
 $route['concluido'] = 'form/concluido';
 $route['approval/confirm'] = 'checklist/approval_confirm';

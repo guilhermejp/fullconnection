@@ -9,6 +9,7 @@
         </div>
     </div><!-- /grid-a -->
     <input type="hidden" id="qtde_material" name="qtde_material">
+    <!-- Retorno da Session controlado no javascript -->
     <div class="ui-grid-a">
         <div class="ui-block-a" style="padding-left: 5px;">
             <input type="text" name="mat_mat[]">
@@ -21,7 +22,7 @@
     <br>
     <div style="padding-left: 5px;">
         <label for="textarea">Extras</label>
-        <textarea name="extras"></textarea>
+        <textarea name="extras"><?=@$session['extras'];?></textarea>
     </div>
     <br>
     <div style="padding-left: 5px;" class="div_comprovantes">
@@ -43,10 +44,12 @@
     <h1>
         <center>
             <a class="numberCircle ok" href="#page_1">ID</a>
+            <?php if($client->temp_only_ar != "1"){ ?>
             <a class="numberCircle ok" href="#page_2">1</a>
             <a class="numberCircle ok" href="#page_3">2</a>
             <a class="numberCircle ok" href="#page_4">3</a>
             <a class="numberCircle ok" href="#page_5">4</a>
+            <?php } ?>
             <a class="numberCircle ok" href="#page_6">5</a>
             <a class="numberCircle" href="#page_7">6</a>
             <a class="numberCircle" href="#page_8">7</a>
